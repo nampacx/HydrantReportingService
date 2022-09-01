@@ -1,0 +1,245 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Simple Inventory API",
+    "description": "This is a simple API",
+    "contact": {
+      "email": "you@your-company.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/MKOKO/Hydrant/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "reporting",
+      "description": "Adds new reports"
+    },
+    {
+      "name": "image-upload",
+      "description": "imageupload"
+    }
+  ],
+  "paths": {
+    "/report": {
+      "get": {
+        "tags": [
+          "reporting"
+        ],
+        "description": "gets all reports",
+        "parameters": [
+          {
+            "name": "Authentication",
+            "in": "header",
+            "description": "user bearer token used to determine if the user is admin or not an allowed to see all reports or only approved",
+            "required": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "gets all reports",
+            "content": {
+              "applciation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayOfReport"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "reporting"
+        ],
+        "description": "adds a new hydrant report",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Report"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "new hydrant report added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewReportResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/report/{report}/approve": {
+      "post": {
+        "tags": [
+          "reporting"
+        ],
+        "parameters": [
+          {
+            "name": "report",
+            "in": "path",
+            "description": "report uuid",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "updated approved value"
+          }
+        }
+      }
+    },
+    "/{report}": {
+      "put": {
+        "tags": [
+          "iamge-upload"
+        ],
+        "description": "adds image to report",
+        "parameters": [
+          {
+            "name": "report",
+            "in": "path",
+            "description": "report uuid",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "added image"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "reporting"
+        ],
+        "description": "deletes a report",
+        "parameters": [
+          {
+            "name": "report",
+            "in": "path",
+            "description": "report uuid",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "report deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ArrayOfReport": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Report"
+        }
+      },
+      "NewReportResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "number"
+          },
+          "long": {
+            "type": "number"
+          }
+        }
+      },
+      "Report": {
+        "required": [
+          "location"
+        ],
+        "type": "object",
+        "properties": {
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "status": {
+            "type": "boolean",
+            "default": false
+          },
+          "hydrantType": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "approved": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      }
+    }
+  }
+}
