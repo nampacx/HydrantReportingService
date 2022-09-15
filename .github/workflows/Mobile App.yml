@@ -1,4 +1,4 @@
-name: windowsCI
+name: 'Mobile App'
 
 on:
   workflow_dispatch:
