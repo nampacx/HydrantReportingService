@@ -9,7 +9,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'hrsvc-dev-fnc' # set this to your application's name
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '**/*.csproj'    # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'src/HydrantReportingService/HydrantReportingService.Functions/HydrantReportingService.Functions.csproj'    # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.x'              # set this to the dotnet version to use
 
 jobs:
@@ -27,9 +27,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore "src/HydrantReportingService/HydrantReportingService.Functions/HydrantReportingService.Functions.csproj"
+      run: dotnet restore ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
     - name: Build
-      run: dotnet build "src/HydrantReportingService/HydrantReportingService.Functions/HydrantReportingService.Functions.csproj" --configuration Release --no-restore --output ./output
+      run: dotnet build ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} --configuration Release --no-restore --output ./output
 
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
