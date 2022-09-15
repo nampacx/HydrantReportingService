@@ -20,12 +20,11 @@ jobs:
         #    echo "${{ secrets.RELEASE_KEYSTORE }}" > android/release.jks.base64
         #    base64 -d android/release.jks.base64 > android/release.decrypted.jks
 
-        - name: Run Workflow
+        - name: Extracr signing key from env
           id: write_file
           uses: timheuer/base64-to-file@v1.1
           with:
             fileName: 'release.decrypted.jks'
-            fileDir: './android/'
             encodedString: ${{ secrets.RELEASE_KEYSTORE }}
         - name: Setup .NET SDK ${{env.DOTNETVERSION}}
           uses: actions/setup-dotnet@v1
@@ -51,7 +50,7 @@ jobs:
         - name : Build Android App
           shell: bash
           run: |
-            dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} -f:net6.0-android -c:Release -o ./output
+            dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} -f:net6.0-android -c:Release
             
         # # Store Android Signing Keystore and password in Secrets using base64 encoding
         # # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/certutil
