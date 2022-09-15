@@ -113,4 +113,7 @@ resource "azurerm_linux_function_app" "example" {
   site_config {
     application_insights_key = azurerm_application_insights.ai.instrumentation_key
   }
+  app_settings = {
+    "CosmosDBConnection" = azurerm_cosmosdb_account.cosmos_acc.connection_strings[0]
+  }
 }
