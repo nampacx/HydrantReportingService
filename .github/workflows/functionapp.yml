@@ -20,7 +20,7 @@ jobs:
     - name: 'Login via Azure CLI'
       uses: Azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS 
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
