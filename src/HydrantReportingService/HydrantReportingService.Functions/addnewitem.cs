@@ -19,7 +19,7 @@ namespace HydrantReportingService.Functions
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             [CosmosDB(
                 databaseName: "hrsvc-dev-cosmos-db",
-                collectionName: "hrsvc-dev-cosmos-container",
+                collectionName: "Reports",
                 ConnectionStringSetting = "CosmosDBConnection")]out dynamic document,
             ILogger log)
         {
