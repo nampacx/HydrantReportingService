@@ -44,39 +44,39 @@ resource "azurerm_application_insights" "ai" {
 }
 
 resource "azurerm_cosmosdb_account" "cosmos_acc" {
-    name                        = "${var.application_name}-${var.stage}-cosmos-acc"
-    resource_group_name         = azurerm_resource_group.rg.name
-    location                    = azurerm_resource_group.rg.location
-    offer_type                  = "Standard"
+  name                = "${var.application_name}-${var.stage}-cosmos-acc"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  offer_type          = "Standard"
   capabilities {
     name = "EnableServerless"
   }
 
-    consistency_policy {
-        consistency_level = "Session"
-    }
+  consistency_policy {
+    consistency_level = "Session"
+  }
 
-    geo_location {
-        location            = var.location
-        failover_priority   = 0
-    }
+  geo_location {
+    location          = var.location
+    failover_priority = 0
+  }
 
-    identity {
-        type = "SystemAssigned"
-    }
+  identity {
+    type = "SystemAssigned"
+  }
 }
 
 resource "azurerm_cosmosdb_sql_database" "cosmos_db" {
-    name                = "${var.application_name}-${var.stage}-cosmos-db"
-    resource_group_name = azurerm_cosmosdb_account.cosmos_acc.resource_group_name
-    account_name        = azurerm_cosmosdb_account.cosmos_acc.name
+  name                = "${var.application_name}-${var.stage}-cosmos-db"
+  resource_group_name = azurerm_cosmosdb_account.cosmos_acc.resource_group_name
+  account_name        = azurerm_cosmosdb_account.cosmos_acc.name
 }
 
 resource "azurerm_cosmosdb_sql_container" "example" {
   name                  = "${var.application_name}-${var.stage}-cosmos-container"
-  resource_group_name   = data.azurerm_cosmosdb_account.example.resource_group_name
-  account_name          = data.azurerm_cosmosdb_account.example.name
-  database_name         = azurerm_cosmosdb_sql_database.example.name
+  resource_group_name   = azurerm_resource_group.rg.name
+  account_name          = azurerm_cosmosdb_account.cosmos_acc.name
+  database_name         = azurerm_cosmosdb_sql_database.cosmos_db.name
   partition_key_path    = "/definition/id"
   partition_key_version = 1
   throughput            = 400
