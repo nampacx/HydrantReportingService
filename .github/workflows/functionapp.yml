@@ -27,9 +27,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore "src/HydrantReportingService/HydrantReportingService.Functions/HydrantReportingService.Functions.csproj"
     - name: Build
-      run: dotnet build --configuration Release --no-restore --output ./output
+      run: dotnet build "src/HydrantReportingService/HydrantReportingService.Functions/HydrantReportingService.Functions.csproj" --configuration Release --no-restore --output ./output
 
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
