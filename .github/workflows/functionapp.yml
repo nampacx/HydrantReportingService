@@ -15,32 +15,22 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: dev
-    steps:
-    - name: 'Checkout GitHub Action'
-      uses: actions/checkout@master
 
+    steps:
     - name: 'Login via Azure CLI'
       uses: Azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+        creds: ${{ secrets.AZURE_CREDENTIALS 
+    - uses: actions/checkout@v3
+    - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore --output ./output
 
-#    - name: 'Run dotnet'
- #     shell: pwsh
-  #    run: |
-   #     pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-    #    dotnet build --configuration Release --output ./output
-     #   popd
-        
-    - name: Install dependencies
-      run: dotnet restore '${{env.AZURE_FUNCTIONAPP_PACKAGE_PATH}}'
-    - name: Build 
-      run: dotnet build '${{env.AZURE_FUNCTIONAPP_PACKAGE_PATH}}' --configuration Release --no-restore --output ./output
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       id: fa
