@@ -24,16 +24,12 @@ resource "azurerm_storage_account" "sa" {
   account_replication_type = "LRS"
 }
 
-resource "azurerm_app_service_plan" "svc_plan" {
+resource "azurerm_service_plan" "svc_plan" {
   name                = "${var.application_name}-${var.stage}-svc-plan"
-  location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  kind                = "FunctionApp"
-
-  sku {
-    tier = "Dynamic"
-    size = "Y1"
-  }
+  location            = azurerm_resource_group.rg.location
+  os_type             = "Linux"
+  sku_name            = "Y1"
 }
 
 resource "azurerm_application_insights" "ai" {
@@ -79,7 +75,6 @@ resource "azurerm_cosmosdb_sql_container" "example" {
   database_name         = azurerm_cosmosdb_sql_database.cosmos_db.name
   partition_key_path    = "/definition/id"
   partition_key_version = 1
-  throughput            = 400
 
   indexing_policy {
     indexing_mode = "consistent"
@@ -106,7 +101,7 @@ resource "azurerm_linux_function_app" "example" {
   name                       = "${var.application_name}-${var.stage}-fnc"
   location                   = azurerm_resource_group.rg.location
   resource_group_name        = azurerm_resource_group.rg.name
-  service_plan_id            = azurerm_app_service_plan.svc_plan.id
+  service_plan_id            = azurerm_service_plan.svc_plan.id
   storage_account_name       = azurerm_storage_account.sa.name
   storage_account_access_key = azurerm_storage_account.sa.primary_access_key
 
