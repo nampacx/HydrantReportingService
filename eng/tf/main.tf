@@ -43,28 +43,63 @@ resource "azurerm_application_insights" "ai" {
   application_type    = "web"
 }
 
-resource "azurerm_sql_server" "sql_server" {
-  name                         = "${var.application_name}-${var.stage}-sql-server"
-  resource_group_name          = azurerm_resource_group.rg.name
-  location                     = azurerm_resource_group.rg.location
-  version                      = "12.0"
-  administrator_login          = var.sql_admin_name
-  administrator_login_password = var.sql_admin_password
+resource "azurerm_cosmosdb_account" "cosmos_acc" {
+    name                        = "${var.application_name}-${var.stage}-cosmos-acc"
+    resource_group_name         = azurerm_resource_group.rg.name
+    location                    = azurerm_resource_group.rg.location
+    offer_type                  = "Standard"
+  capabilities {
+    name = "EnableServerless"
+  }
+
+    consistency_policy {
+        consistency_level = "Session"
+    }
+
+    geo_location {
+        location            = var.location
+        failover_priority   = 0
+    }
+
+    identity {
+        type = "SystemAssigned"
+    }
 }
 
-resource "azurerm_sql_firewall_rule" "allowAzureServices" {
-  name                = "Allow_Azure_Services"
-  resource_group_name = azurerm_resource_group.rg.name
-  server_name         = azurerm_sql_server.sql_server.name
-  start_ip_address    = "0.0.0.0"
-  end_ip_address      = "0.0.0.0"
+resource "azurerm_cosmosdb_sql_database" "cosmos_db" {
+    name                = "${var.application_name}-${var.stage}-cosmos-db"
+    resource_group_name = azurerm_cosmosdb_account.cosmos_acc.resource_group_name
+    account_name        = azurerm_cosmosdb_account.cosmos_acc.name
 }
 
-resource "azurerm_sql_database" "database" {
-  name                = "${var.application_name}${var.stage}db"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  server_name         = azurerm_sql_server.sql_server.name
+resource "azurerm_cosmosdb_sql_container" "example" {
+  name                  = "${var.application_name}-${var.stage}-cosmos-container"
+  resource_group_name   = data.azurerm_cosmosdb_account.example.resource_group_name
+  account_name          = data.azurerm_cosmosdb_account.example.name
+  database_name         = azurerm_cosmosdb_sql_database.example.name
+  partition_key_path    = "/definition/id"
+  partition_key_version = 1
+  throughput            = 400
+
+  indexing_policy {
+    indexing_mode = "consistent"
+
+    included_path {
+      path = "/*"
+    }
+
+    included_path {
+      path = "/included/?"
+    }
+
+    excluded_path {
+      path = "/excluded/?"
+    }
+  }
+
+  unique_key {
+    paths = ["/definition/idlong", "/definition/idshort"]
+  }
 }
 
 resource "azurerm_linux_function_app" "example" {
@@ -77,9 +112,5 @@ resource "azurerm_linux_function_app" "example" {
 
   site_config {
     application_insights_key = azurerm_application_insights.ai.instrumentation_key
-  }
-
-  app_settings = {
-    SqlConnectionString = "Server=tcp:${azurerm_sql_database.database.name}.database.windows.net,1433;Initial Catalog=${azurerm_sql_database.database.name};Persist Security Info=False;User ID=${var.sql_admin_name};Password=${var.sql_admin_password};MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   }
 }
