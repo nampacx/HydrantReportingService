@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HydrantReportingService.Functions", "HydrantReportingService.Functions\HydrantReportingService.Functions.csproj", "{9E2AAA0D-74F5-4EEE-B9EA-8BD407455ADA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E2AAA0D-74F5-4EEE-B9EA-8BD407455ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E2AAA0D-74F5-4EEE-B9EA-8BD407455ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E2AAA0D-74F5-4EEE-B9EA-8BD407455ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E2AAA0D-74F5-4EEE-B9EA-8BD407455ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94AF803E-94F1-469E-8099-B127CA606D25}
+	EndGlobalSection
+EndGlobal

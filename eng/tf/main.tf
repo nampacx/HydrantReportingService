@@ -69,7 +69,7 @@ resource "azurerm_cosmosdb_sql_database" "cosmos_db" {
 }
 
 resource "azurerm_cosmosdb_sql_container" "example" {
-  name                  = "${var.application_name}-${var.stage}-cosmos-container"
+  name                  = "Reports"
   resource_group_name   = azurerm_resource_group.rg.name
   account_name          = azurerm_cosmosdb_account.cosmos_acc.name
   database_name         = azurerm_cosmosdb_sql_database.cosmos_db.name
