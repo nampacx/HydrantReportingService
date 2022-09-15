@@ -30,10 +30,10 @@ resource "azurerm_app_service_plan" "svc_plan" {
   resource_group_name = azurerm_resource_group.rg.name
   kind                = "FunctionApp"
 
-   sku {
+  sku {
     tier = "Dynamic"
     size = "Y1"
-   }
+  }
 }
 
 resource "azurerm_application_insights" "ai" {
@@ -76,10 +76,10 @@ resource "azurerm_linux_function_app" "example" {
   storage_account_access_key = azurerm_storage_account.sa.primary_access_key
 
   site_config {
-     application_insights_key               = azurerm_application_insights.ai.instrumentation_key
+    application_insights_key = azurerm_application_insights.ai.instrumentation_key
   }
-    
+
   app_settings = {
-    SqlConnectionString    = "Server=tcp:${azurerm_sql_database.database.name}.database.windows.net,1433;Initial Catalog=${azurerm_sql_database.database.name};Persist Security Info=False;User ID=${var.sql_admin_name};Password=${var.sql_admin_password};MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    SqlConnectionString = "Server=tcp:${azurerm_sql_database.database.name}.database.windows.net,1433;Initial Catalog=${azurerm_sql_database.database.name};Persist Security Info=False;User ID=${var.sql_admin_name};Password=${var.sql_admin_password};MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   }
 }
