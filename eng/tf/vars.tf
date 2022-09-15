@@ -5,7 +5,7 @@ variable "location" {
 
 variable "application_name" {
   type    = string
-  default = "hrs"
+  default = "hrsvc"
 }
 
 variable "stage" {
