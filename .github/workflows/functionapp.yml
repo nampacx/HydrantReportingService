@@ -9,34 +9,36 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'hrsvc-dev-fnc' # set this to your application's name
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: './src/HydrantReportingService'    # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './src/HydrantReportingService/HydrantReportingService.Functions/HydrantReportingService.Functions.csproj'    # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '2.2.402'              # set this to the dotnet version to use
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+    environment: dev
     steps:
-    - name: 'Checkout GitHub action'
-      uses: actions/checkout@v2
-    
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@master
+
     - name: 'Login via Azure CLI'
-      uses: azure/login@v1.4.6
+      uses: azure/login@v1
       with:
-         creds: ${{ secrets.AZURE_CREDENTIALS }} 
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: 'Resolve Project Dependencies Using Dotnet'
-      shell: bash
+    - name: 'Run dotnet'
+      shell: pwsh
       run: |
         pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
         dotnet build --configuration Release --output ./output
         popd
-    - name: 'Run Azure Functions action'
+    - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
+      id: fa
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
