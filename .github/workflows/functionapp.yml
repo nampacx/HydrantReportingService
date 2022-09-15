@@ -38,8 +38,8 @@ jobs:
      #   popd
         
     - name: Install dependencies
-      run: dotnet restore
-    - name: Build
+      run: dotnet restore '${{env.AZURE_FUNCTIONAPP_PACKAGE_PATH}}'
+    - name: Build 
       run: dotnet build '${{env.AZURE_FUNCTIONAPP_PACKAGE_PATH}}' --configuration Release --no-restore --output ./output
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
