@@ -41,7 +41,7 @@ namespace HydrantReportingService.Functions
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var data = JsonConvert.DeserializeObject<HydrantReportDTO>(requestBody);
-            data.id = Guid.NewGuid().ToString();
+            data.Id = Guid.NewGuid().ToString();
             data.Approved = false;
             await report.AddAsync(data);
 
