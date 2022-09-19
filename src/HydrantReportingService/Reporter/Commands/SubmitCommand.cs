@@ -32,7 +32,7 @@ namespace Reporter.Commands
                 Type = reporterViewModel.HydrantType
             };
 
-            var reportId = SubmitRequest(newReport).ReportId;
+            var reportId = SubmitRequest(newReport).Id;
             var sasUri = RequestSasUri(reportId);
             UploadFiles(sasUri);
 
