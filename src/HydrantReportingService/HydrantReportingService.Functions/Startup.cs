@@ -18,7 +18,7 @@ namespace HydrantReportingService.Functions
         public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)
         {
             builder.ConfigurationBuilder.AddEnvironmentVariables();
-            builder.ConfigurationBuilder.AddUserSecrets<Startup>();
+            builder.ConfigurationBuilder.AddUserSecrets<Startup>(true);
         }
 
         public override void Configure(IFunctionsHostBuilder builder)
