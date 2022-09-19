@@ -91,7 +91,7 @@ resource "azurerm_linux_function_app" "example" {
   app_settings = {
     "CosmosDBConnection" = azurerm_cosmosdb_account.cosmos_acc.connection_strings[0]
     "CosmosDatabase"   = azurerm_cosmosdb_sql_database.cosmos_db.name
-    "CosmosContainer"  = azurerm_cosmosdb_sql_container.container.name
+    "CosmosCollection"  = azurerm_cosmosdb_sql_container.container.name
     "BingMapsApiKey"     = var.bingmaps_api_key
   }
 }
