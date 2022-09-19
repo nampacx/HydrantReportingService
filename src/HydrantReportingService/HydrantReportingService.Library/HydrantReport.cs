@@ -3,7 +3,7 @@
 namespace HydrantReportingService.Library;
 public class HydrantReportDTO
 {
-    public Guid ReportId { get; set; }
+    public string Id { get; set; }
     public DocumentType DocumentType { get; } = DocumentType.HydrantReport;
 
     public HydrantType Type { get; set; }
