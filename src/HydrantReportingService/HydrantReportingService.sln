@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Cloud", "01 Cloud", "{E5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Mobile", "02 Mobile", "{074674BC-2584-4CEC-AA94-BB8EFC6CBDF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HydrantReportingService.Library", "HydrantReportingService.Library\HydrantReportingService.Library.csproj", "{424F9709-034E-4B9E-B087-4EEB44CA8B39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HydrantReportingService.Services", "HydrantReportingService.Services\HydrantReportingService.Services.csproj", "{02B516FD-7AFF-4F93-B6A2-1C553EAEF048}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{9500DFEC-95EB-41FE-9A99-DDC5068F8D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9500DFEC-95EB-41FE-9A99-DDC5068F8D90}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9500DFEC-95EB-41FE-9A99-DDC5068F8D90}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{424F9709-034E-4B9E-B087-4EEB44CA8B39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{424F9709-034E-4B9E-B087-4EEB44CA8B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{424F9709-034E-4B9E-B087-4EEB44CA8B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{424F9709-034E-4B9E-B087-4EEB44CA8B39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B516FD-7AFF-4F93-B6A2-1C553EAEF048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B516FD-7AFF-4F93-B6A2-1C553EAEF048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B516FD-7AFF-4F93-B6A2-1C553EAEF048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B516FD-7AFF-4F93-B6A2-1C553EAEF048}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -34,6 +46,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9E2AAA0D-74F5-4EEE-B9EA-8BD407455ADA} = {E5E85DAD-46C3-432E-AAA3-43CA540128ED}
 		{9500DFEC-95EB-41FE-9A99-DDC5068F8D90} = {074674BC-2584-4CEC-AA94-BB8EFC6CBDF4}
+		{424F9709-034E-4B9E-B087-4EEB44CA8B39} = {E5E85DAD-46C3-432E-AAA3-43CA540128ED}
+		{02B516FD-7AFF-4F93-B6A2-1C553EAEF048} = {E5E85DAD-46C3-432E-AAA3-43CA540128ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94AF803E-94F1-469E-8099-B127CA606D25}
