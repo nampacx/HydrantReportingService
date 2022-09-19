@@ -68,8 +68,8 @@ resource "azurerm_cosmosdb_sql_database" "cosmos_db" {
   account_name        = azurerm_cosmosdb_account.cosmos_acc.name
 }
 
-resource "azurerm_cosmosdb_sql_container" "example" {
-  name                  = "Reports"
+resource "azurerm_cosmosdb_sql_container" "container" {
+  name                  = "reports"
   resource_group_name   = azurerm_resource_group.rg.name
   account_name          = azurerm_cosmosdb_account.cosmos_acc.name
   database_name         = azurerm_cosmosdb_sql_database.cosmos_db.name
@@ -110,5 +110,8 @@ resource "azurerm_linux_function_app" "example" {
   }
   app_settings = {
     "CosmosDBConnection" = azurerm_cosmosdb_account.cosmos_acc.connection_strings[0]
+    "CosmosDBDatabase" = azurerm_cosmosdb_sql_database.cosmos_db.name
+    "CosmosDBContainer" = azurerm_cosmosdb_sql_container.container.name
+    "BingMapsApiKey" = var.bingmaps_api_key
   }
 }

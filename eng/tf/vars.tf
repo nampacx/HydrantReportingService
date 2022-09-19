@@ -22,3 +22,8 @@ variable "sql_admin_password" {
   type    = string
   default = "4-v3ry-53cr37-p455w0rd"
 }
+
+variable "bingmaps_api_key" {
+  type    = string
+  sensitive = true
+}
