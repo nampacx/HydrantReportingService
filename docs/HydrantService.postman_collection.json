@@ -77,7 +77,7 @@
 		{
 			"name": "ApproveReport",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -104,7 +104,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "2367434a-9f98-4a91-87b8-7d8aad0b6757"
+							"value": "c3215f43-7397-4001-a159-9f4163cfa356"
 						}
 					]
 				}
