@@ -3,7 +3,9 @@
     x:Class="Reporter.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:viewModels="clr-namespace:Reporter.ViewModel">
+    xmlns:viewModels="clr-namespace:Reporter.ViewModel"
+    Title="New Report">
+
     <ContentPage.BindingContext>
         <viewModels:ReporterViewModel />
     </ContentPage.BindingContext>
@@ -13,35 +15,46 @@
 
             <Label Margin="0,20" Text="Position:" />
             <Button
+                BorderColor="Blue"
+                BorderWidth="2"
                 Command="{Binding GetLocationCommand}"
-                FontSize="Large"
-                HeightRequest="100"
-                HorizontalOptions="Center"
-                Text="Get coodinates"
-                WidthRequest="200" />
+                CornerRadius="5"
+                HorizontalOptions="Fill"
+                Text="Get coodinates" />
             <Label HorizontalOptions="Center" Text="{Binding LocationString}" />
 
+            <Label Margin="0,20" Text="Type" />
+            <Border>
+                <Picker
+                    ItemsSource="{Binding AllTypes}"
+                    SelectedItem="{Binding SelectedType, Mode=TwoWay}"
+                    TextColor="White" />
+            </Border>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    Margin="0,20"
+                    Text="Defect:"
+                    VerticalOptions="Center" />
+                <Switch
+                    Grid.Column="1"
+                    Margin="0,20"
+                    VerticalOptions="Center" />
+            </Grid>
+            <Label Margin="0,20" Text="Notes" />
+            <Border>
+                <Editor HeightRequest="250" Placeholder="Enter your response here" />
+            </Border>
 
             <Label Margin="0,20" Text="Picture:" />
-            <Button
-                Command="{Binding TakePictureCommand}"
-                FontSize="Large"
-                HeightRequest="100"
-                HorizontalOptions="Center"
-                Text="Take new picture"
-                WidthRequest="200" />
-
-            <Button
-                Margin="0,20"
-                Command="{Binding AddPictureCommand}"
-                FontSize="Large"
-                HeightRequest="100"
-                HorizontalOptions="Center"
-                Text="Add picture"
-                WidthRequest="200" />
-
             <CarouselView
                 x:Name="carouselView"
+                Margin="0,20"
                 IndicatorView="indicatorView"
                 ItemsSource="{Binding ImagePaths}">
                 <CarouselView.ItemTemplate>
@@ -72,7 +85,6 @@
                                         </Image>
                                     </StackLayout>
                                 </SwipeView>
-
                             </Frame>
                         </StackLayout>
                     </DataTemplate>
@@ -84,7 +96,48 @@
                 IndicatorColor="Red"
                 SelectedIndicatorColor="Green" />
 
-            <Button Text="Submit" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ImageButton
+                    Grid.Column="0"
+                    Margin="20"
+                    BackgroundColor="White"
+                    BorderColor="Blue"
+                    BorderWidth="2"
+                    Command="{Binding TakePictureCommand}"
+                    CornerRadius="5"
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    Source="add_a_photo_black_24dp.svg"
+                    WidthRequest="100" />
+
+                <ImageButton
+                    Grid.Column="1"
+                    Margin="20"
+                    BackgroundColor="White"
+                    BorderColor="Blue"
+                    BorderWidth="2"
+                    Command="{Binding AddPictureCommand}"
+                    CornerRadius="5"
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    Source="add_photo_alternate_black_24dp.svg"
+                    WidthRequest="100" />
+            </Grid>
+
+
+
+
+            <Button
+                BorderColor="Blue"
+                BorderWidth="2"
+                Command="{Binding SubmitCommand}"
+                CornerRadius="5"
+                HorizontalOptions="Fill"
+                Text="Submit" />
 
         </VerticalStackLayout>
     </ScrollView>

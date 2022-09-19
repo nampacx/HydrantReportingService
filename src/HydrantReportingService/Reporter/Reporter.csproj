@@ -49,7 +49,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\add_a_photo_black_24dp.svg" />
+	  <None Remove="Resources\Images\add_photo_alternate_black_24dp.svg" />
 	  <None Remove="Resources\Images\delete_black_24dp.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Azure.Storage.Blobs" Version="12.13.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="StartPage.xaml.cs">
+	    <DependentUpon>StartPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="StartPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

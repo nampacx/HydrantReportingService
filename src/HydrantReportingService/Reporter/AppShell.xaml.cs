@@ -5,6 +5,9 @@
         public AppShell()
         {
             InitializeComponent();
+
+            Routing.RegisterRoute("start", typeof(StartPage));
+            Routing.RegisterRoute("newreport", typeof(MainPage));
         }
     }
 }
