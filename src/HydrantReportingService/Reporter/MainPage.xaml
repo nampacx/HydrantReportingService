@@ -1,41 +1,91 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Reporter.MainPage">
+<ContentPage
+    x:Class="Reporter.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:Reporter.ViewModel">
+    <ContentPage.BindingContext>
+        <viewModels:ReporterViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView Margin="20">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+        <VerticalStackLayout Margin="10">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+            <Label Margin="0,20" Text="Position:" />
+            <Button
+                Command="{Binding GetLocationCommand}"
+                FontSize="Large"
+                HeightRequest="100"
+                HorizontalOptions="Center"
+                Text="Get coodinates"
+                WidthRequest="200" />
+            <Label HorizontalOptions="Center" Text="{Binding LocationString}" />
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <Label Margin="0,20" Text="Picture:" />
+            <Button
+                Command="{Binding TakePictureCommand}"
+                FontSize="Large"
+                HeightRequest="100"
+                HorizontalOptions="Center"
+                Text="Take new picture"
+                WidthRequest="200" />
 
             <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                Margin="0,20"
+                Command="{Binding AddPictureCommand}"
+                FontSize="Large"
+                HeightRequest="100"
+                HorizontalOptions="Center"
+                Text="Add picture"
+                WidthRequest="200" />
+
+            <CarouselView
+                x:Name="carouselView"
+                IndicatorView="indicatorView"
+                ItemsSource="{Binding ImagePaths}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame
+                                Margin="20"
+                                BorderColor="DarkGray"
+                                CornerRadius="5"
+                                HasShadow="True"
+                                HeightRequest="250"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                                <SwipeView>
+                                    <SwipeView.BottomItems>
+                                        <SwipeItem
+                                            BackgroundColor="Red"
+                                            Command="{Binding Source={x:Reference carouselView}, Path=BindingContext.RemovePictureCommand}"
+                                            CommandParameter="{Binding}"
+                                            IconImageSource="delete_black_24dp.svg"
+                                            Text="Delete" />
+                                    </SwipeView.BottomItems>
+                                    <StackLayout>
+                                        <Image>
+                                            <Image.Source>
+                                                <FileImageSource File="{Binding}" />
+                                            </Image.Source>
+                                        </Image>
+                                    </StackLayout>
+                                </SwipeView>
+
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <IndicatorView
+                x:Name="indicatorView"
+                HorizontalOptions="Center"
+                IndicatorColor="Red"
+                SelectedIndicatorColor="Green" />
+
+            <Button Text="Submit" />
 
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
