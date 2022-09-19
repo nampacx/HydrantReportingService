@@ -49,25 +49,38 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\add_a_photo_black_24dp.svg" />
-	  <None Remove="Resources\Images\add_photo_alternate_black_24dp.svg" />
-	  <None Remove="Resources\Images\delete_black_24dp.svg" />
+		<None Remove="appsettings.json" />
+		<None Remove="Resources\Images\add_a_photo_black_24dp.svg" />
+		<None Remove="Resources\Images\add_photo_alternate_black_24dp.svg" />
+		<None Remove="Resources\Images\delete_black_24dp.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Azure.Storage.Blobs" Version="12.13.1" />
+	  <EmbeddedResource Include="appsettings.json" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="StartPage.xaml.cs">
-	    <DependentUpon>StartPage.xaml</DependentUpon>
-	  </Compile>
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.13.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+		<PackageReference Include="RestSharp" Version="108.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="StartPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+	  <ProjectReference Include="..\HydrantReportingService.Library\HydrantReportingService.Library.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="StartPage.xaml.cs">
+			<DependentUpon>StartPage.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="StartPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

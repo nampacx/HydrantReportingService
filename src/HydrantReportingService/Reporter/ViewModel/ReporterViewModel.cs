@@ -1,13 +1,8 @@
-﻿using Reporter.Commands;
-using Reporter.DataContracts;
-using System;
-using System.Collections.Generic;
+﻿using HydrantReportingService.Library;
+using Reporter.Commands;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Reporter.ViewModel
@@ -44,7 +39,18 @@ namespace Reporter.ViewModel
         public bool Defect { get => defect; set => SetProperty(ref defect, value); }
         public IReadOnlyList<string> AllTypes { get; } = Enum.GetNames(typeof(HydrantType));
 
-        public string SelectedType { get => selectedType; set => SetProperty(ref selectedType,value); }
+        public string SelectedType
+        {
+            get => selectedType; set
+            {
+                SetProperty(ref selectedType, value);
+                if (Enum.TryParse(value, out HydrantType hydrantType))
+                {
+                    HydrantType = hydrantType;
+                }
+            }
+        }
+        public HydrantType HydrantType { get; set; }
 
         public ObservableCollection<string> ImagePaths { get => imagePaths; set => SetProperty(ref imagePaths, value); }
 

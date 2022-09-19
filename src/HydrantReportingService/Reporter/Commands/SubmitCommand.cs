@@ -1,18 +1,14 @@
-﻿using Reporter.Services;
+﻿using HydrantReportingService.Library;
+using Newtonsoft.Json;
+using Reporter.Services;
 using Reporter.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RestSharp;
 using System.Windows.Input;
 
 namespace Reporter.Commands
 {
     public class SubmitCommand : ICommand
     {
-        private string sas = @"https://hrsvcdevsa.blob.core.windows.net/test?sp=racwl&st=2022-09-19T12:07:38Z&se=2022-09-19T20:07:38Z&spr=https&sv=2021-06-08&sr=c&sig=rN312FHKarf8oS78XxEV21YRN8dVB6f3wxdAUEZDx3Q%3D"; 
-
         private readonly ReporterViewModel reporterViewModel;
 
         public event EventHandler CanExecuteChanged;
@@ -29,12 +25,50 @@ namespace Reporter.Commands
 
         public void Execute(object parameter)
         {
-            //foreach (var image in reporterViewModel.ImagePaths)
-            //{
-            //    UploadService.UploadFile(new Uri(sas), "testitest", image);
-            //}
+            var newReport = new HydrantReportDTO
+            {
+                Defect = reporterViewModel.Defect,
+                Notes = reporterViewModel.Notes,
+                Type = reporterViewModel.HydrantType
+            };
+
+            var reportId = SubmitRequest(newReport).ReportId;
+            var sasUri = RequestSasUri(reportId);
+            UploadFiles(sasUri);
 
             Shell.Current.Navigation.PopAsync();
+        }
+
+        private void UploadFiles(Uri sasUri)
+        {
+            foreach (var image in reporterViewModel.ImagePaths)
+            {
+                UploadService.UploadFile(sasUri, "", image);
+            }
+        }
+
+        private Uri RequestSasUri(object reportId)
+        {
+            var restClient = new RestClient($"{GlobalSettings.Settings.RequestSasUriUri}/{reportId}");
+            var result = restClient.Get(new RestRequest());
+
+            if (result.IsSuccessful)
+                return new Uri(result.Content);
+
+            return null;
+        }
+
+        private HydrantReportDTO SubmitRequest(HydrantReportDTO hydrantReportDTO)
+        {
+            var restClient = new RestClient(GlobalSettings.Settings.SubmitReportUri);
+            var postRequest = new RestRequest();
+            postRequest.AddBody(hydrantReportDTO);
+            var result = restClient.Post(postRequest);
+
+            if (result.IsSuccessful)
+                return JsonConvert.DeserializeObject<HydrantReportDTO>(result.Content);
+
+            return null;
         }
     }
 }
