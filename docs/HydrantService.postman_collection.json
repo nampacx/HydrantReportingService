@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "89d45b70-9a61-4e8b-bf19-c193baf00585",
+		"name": "HydrantService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ResolvePoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7237/api/resolve/coordinates/:latitude/:longitude",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7237",
+					"path": [
+						"api",
+						"resolve",
+						"coordinates",
+						":latitude",
+						":longitude"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "latitude",
+							"value": "48.782000"
+						},
+						{
+							"key": "longitude",
+							"value": "9.160890"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateReport",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": 0,\r\n  \"defect\": true,\r\n  \"notes\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7237/api/reports",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7237",
+					"path": [
+						"api",
+						"reports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ApproveReport",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": 0,\r\n  \"defect\": true,\r\n  \"notes\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7237/api/reports/:id/approve",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7237",
+					"path": [
+						"api",
+						"reports",
+						":id",
+						"approve"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "c3215f43-7397-4001-a159-9f4163cfa356"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReports",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": 0,\r\n  \"defect\": true,\r\n  \"notes\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7237/api/reports",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7237",
+					"path": [
+						"api",
+						"reports"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

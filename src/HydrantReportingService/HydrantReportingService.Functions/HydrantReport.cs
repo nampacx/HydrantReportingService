@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -26,11 +28,11 @@ namespace HydrantReportingService.Functions
             _logger = log;
         }
 
-        [FunctionName("HydrantReport")]
+        [FunctionName("CreateHydrantReport")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
         [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(HydrantReportDTO), Description = "The OK response")]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "reports")] HttpRequest req,
              [CosmosDB(
@@ -40,11 +42,52 @@ namespace HydrantReportingService.Functions
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var data = JsonConvert.DeserializeObject<HydrantReportDTO>(requestBody);
-            data.ReportId = Guid.NewGuid();
+            data.Id = Guid.NewGuid().ToString();
             data.Approved = false;
             await report.AddAsync(data);
 
             return new OkObjectResult(data);
+        }
+
+        [FunctionName("GetHydrantReports")]
+        [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<HydrantReportDTO>), Description = "The OK response")]
+        public async Task<IActionResult> GetHydrantReports(
+           [HttpTrigger(AuthorizationLevel.Function, "get", Route = "reports")] HttpRequest req,
+            [CosmosDB(
+                databaseName: "%CosmosDatabase%",
+                collectionName: "%CosmosCollection%",
+                ConnectionStringSetting = "CosmosDBConnection",
+                SqlQuery = "select * from reports")]  
+            IEnumerable<HydrantReportDTO> reports)
+        {
+            return new OkObjectResult(reports);
+        }
+
+        [FunctionName("ApproveHydrantReport")]
+        [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<HydrantReportDTO>), Description = "The OK response")]
+        public async Task<IActionResult> ApproveReport(
+           [HttpTrigger(AuthorizationLevel.Function, "put", Route = "reports/{reportId}/approve")] HttpRequest req,string reportId,
+            [CosmosDB(
+                databaseName: "%CosmosDatabase%",
+                collectionName: "%CosmosCollection%",
+                ConnectionStringSetting = "CosmosDBConnection")]
+            IAsyncCollector<HydrantReportDTO> report,
+            [CosmosDB(
+                databaseName: "%CosmosDatabase%",
+                collectionName: "%CosmosCollection%",
+                ConnectionStringSetting = "CosmosDBConnection")]
+            IEnumerable<HydrantReportDTO> reports)
+        {
+            var dto = reports.First(x => x.Id.Equals(reportId));
+            dto.Approved = true;
+            await report.AddAsync(dto);
+            return new AcceptedResult();
         }
     }
 }
