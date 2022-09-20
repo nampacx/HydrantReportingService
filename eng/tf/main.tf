@@ -95,3 +95,9 @@ resource "azurerm_linux_function_app" "example" {
     "BingMapsApiKey"     = var.bingmaps_api_key
   }
 }
+
+resource "azurerm_static_site" "web_app" {
+  name                = var.application_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+}
