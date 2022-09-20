@@ -5,10 +5,14 @@ using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 [assembly: FunctionsStartup(typeof(HydrantReportingService.Functions.Startup))]
 namespace HydrantReportingService.Functions

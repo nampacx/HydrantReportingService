@@ -5,6 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
+using GeoJSON.Net.Feature;
+using GeoJSON.Net.Geometry;
+
 using HydrantReportingService.Library;
 
 using Microsoft.AspNetCore.Http;
@@ -16,6 +19,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace HydrantReportingService.Functions
 {
@@ -64,6 +68,30 @@ namespace HydrantReportingService.Functions
             IEnumerable<HydrantReportDTO> reports)
         {
             return new OkObjectResult(reports);
+        }
+
+        [FunctionName("GetHydrantReportsAsGeoJson")]
+        [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<HydrantReportDTO>), Description = "The OK response")]
+        public async Task<IActionResult> GetHydrantReportsAsGeoJson(
+           [HttpTrigger(AuthorizationLevel.Function, "get", Route = "reports/geojson")] HttpRequest req,
+            [CosmosDB(
+                databaseName: "%CosmosDatabase%",
+                collectionName: "%CosmosCollection%",
+                ConnectionStringSetting = "CosmosDBConnection",
+                SqlQuery = "select * from reports")]
+            IEnumerable<HydrantReportDTO> reports)
+        {
+            var result = reports.Select(r =>
+            {
+                return r.ConvertToGeoJsonFeature();
+            });
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(new StringEnumConverter());
+            var resultAsJson = JsonConvert.SerializeObject(result,Formatting.Indented, settings);
+            return new OkObjectResult(resultAsJson);
         }
 
         [FunctionName("ApproveHydrantReport")]

@@ -11,12 +11,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:7237/api/resolve/coordinates/:latitude/:longitude",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/api/resolve/coordinates/:latitude/:longitude",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "7237",
 					"path": [
 						"api",
 						"resolve",
@@ -52,7 +50,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"type\": 0,\r\n  \"defect\": true,\r\n  \"notes\": \"string\"\r\n}",
+					"raw": "{\r\n  \"type\": 0,\r\n  \"defect\": true,\r\n  \"notes\": \"string\",\r\n  \"latitude\": 10\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -60,12 +58,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:7237/api/reports",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/api/reports",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "7237",
 					"path": [
 						"api",
 						"reports"
@@ -89,12 +85,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:7237/api/reports/:id/approve",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/api/reports/:id/approve",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "7237",
 					"path": [
 						"api",
 						"reports",
@@ -129,12 +123,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:7237/api/reports",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/api/reports",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "7237",
 					"path": [
 						"api",
 						"reports"
@@ -142,6 +134,64 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GetReportsGeoJson",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": 0,\r\n  \"defect\": true,\r\n  \"notes\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/reports/geojson",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"reports",
+						"geojson"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:7237",
+			"type": "default"
 		}
 	]
 }
