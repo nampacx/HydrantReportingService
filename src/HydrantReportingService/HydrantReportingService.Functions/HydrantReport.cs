@@ -35,7 +35,6 @@ namespace HydrantReportingService.Functions
         [FunctionName("CreateHydrantReport")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(HydrantReportDTO), Description = "The OK response")]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "reports")] HttpRequest req,
@@ -56,7 +55,6 @@ namespace HydrantReportingService.Functions
         [FunctionName("GetHydrantReports")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<HydrantReportDTO>), Description = "The OK response")]
         public async Task<IActionResult> GetHydrantReports(
            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "reports")] HttpRequest req,
@@ -73,8 +71,7 @@ namespace HydrantReportingService.Functions
         [FunctionName("GetHydrantReportsAsGeoJson")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<HydrantReportDTO>), Description = "The OK response")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<FeatureCollection>), Description = "The OK response")]
         public async Task<IActionResult> GetHydrantReportsAsGeoJson(
            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "reports/geojson")] HttpRequest req,
             [CosmosDB(
@@ -97,7 +94,6 @@ namespace HydrantReportingService.Functions
         [FunctionName("ApproveHydrantReport")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<HydrantReportDTO>), Description = "The OK response")]
         public async Task<IActionResult> ApproveReport(
            [HttpTrigger(AuthorizationLevel.Function, "put", Route = "reports/{reportId}/approve")] HttpRequest req,string reportId,
