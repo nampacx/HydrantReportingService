@@ -100,7 +100,7 @@ namespace HydrantReportingService.Functions
         [FunctionName("ApproveHydrantReport")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(IEnumerable<HydrantReportDTO>), Description = "The OK response")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.Accepted ,Description = "Accepted response")]
         public async Task<IActionResult> ApproveReport(
            [HttpTrigger(AuthorizationLevel.Function, "put", Route = "reports/{reportId}/approve")] HttpRequest req,string reportId,
             [CosmosDB(
