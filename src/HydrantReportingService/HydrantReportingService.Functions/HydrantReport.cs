@@ -9,9 +9,11 @@ using GeoJSON.Net.Feature;
 using GeoJSON.Net.Geometry;
 
 using HydrantReportingService.Library;
+using HydrantReportingService.Services.BingMaps;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
@@ -26,10 +28,12 @@ namespace HydrantReportingService.Functions
     public class HydrantReport
     {
         private readonly ILogger<HydrantReport> _logger;
+        private readonly BingMapClient _bingMapClient;
 
-        public HydrantReport(ILogger<HydrantReport> log)
+        public HydrantReport(ILogger<HydrantReport> log, BingMapClient client)
         {
             _logger = log;
+            _bingMapClient = client;
         }
 
         [FunctionName("CreateHydrantReport")]
@@ -45,6 +49,8 @@ namespace HydrantReportingService.Functions
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var data = JsonConvert.DeserializeObject<HydrantReportDTO>(requestBody);
+            var address = await _bingMapClient.GetAddress(data.Latitude, data.Longitude);
+            data.Address = address.Address;
             data.Id = Guid.NewGuid().ToString();
             data.Approved = false;
             await report.AddAsync(data);
