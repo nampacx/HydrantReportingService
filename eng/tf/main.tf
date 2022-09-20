@@ -60,7 +60,7 @@ resource "azurerm_cosmosdb_account" "cosmos_acc" {
   identity {
     type = "SystemAssigned"
   }
-} 
+}
 
 resource "azurerm_cosmosdb_sql_database" "cosmos_db" {
   name                = "${var.application_name}-${var.stage}-cosmos-db"
