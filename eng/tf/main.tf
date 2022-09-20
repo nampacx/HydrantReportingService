@@ -78,7 +78,7 @@ resource "azurerm_cosmosdb_sql_container" "container" {
 }
 
 resource "azurerm_linux_function_app" "example" {
-  name                       = "${var.application_name}-${var.stage}-fnc"
+  name                       = "${var.application_name}-${var.stage}-fnct"
   location                   = azurerm_resource_group.rg.location
   resource_group_name        = azurerm_resource_group.rg.name
   service_plan_id            = azurerm_service_plan.svc_plan.id

@@ -47,9 +47,9 @@ namespace Reporter.Commands
             }
         }
 
-        private Uri RequestSasUri(object reportId)
+        private Uri RequestSasUri(string reportId)
         {
-            var restClient = new RestClient($"{GlobalSettings.Settings.RequestSasUriUri}/{reportId}");
+            var restClient = new RestClient(GlobalSettings.Settings.RequestSasUriUri.Replace("{reportId}", reportId));
             var result = restClient.Get(new RestRequest());
 
             if (result.IsSuccessful)
