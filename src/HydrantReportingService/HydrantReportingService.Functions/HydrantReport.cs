@@ -50,7 +50,7 @@ namespace HydrantReportingService.Functions
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var data = JsonConvert.DeserializeObject<HydrantReportDTO>(requestBody);
             var address = await _bingMapClient.GetAddress(data.Latitude, data.Longitude);
-            data.Address = address.Address;
+            data.Address = address?.Address;
             data.Id = Guid.NewGuid().ToString();
             data.Approved = false;
             await report.AddAsync(data);
