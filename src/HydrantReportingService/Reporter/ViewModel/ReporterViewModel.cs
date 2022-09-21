@@ -1,5 +1,7 @@
-﻿using HydrantReportingService.Library;
+﻿using CommunityToolkit.Mvvm.Input;
+using HydrantReportingService.Library;
 using Reporter.Commands;
+using Reporter.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -17,6 +19,8 @@ namespace Reporter.ViewModel
         private string selectedType;
         private int maxSteps;
         private int currentSteps;
+        private double progress;
+        private bool activityInProgress;
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -52,12 +56,10 @@ namespace Reporter.ViewModel
                 }
             }
         }
+
+        public bool ActivityInProgress { get => activityInProgress; set => SetProperty(ref activityInProgress , value); }
+
         public HydrantType HydrantType { get; set; }
-
-        public int MaxSteps { get => maxSteps; set => SetProperty(ref maxSteps, value); }
-
-        public int CurrentSteps { get => currentSteps; set => SetProperty(ref currentSteps, value); }
-
         public ObservableCollection<string> ImagePaths { get => imagePaths; set => SetProperty(ref imagePaths, value); }
 
         public ICommand AddPictureCommand { get; private set; }
@@ -65,15 +67,30 @@ namespace Reporter.ViewModel
         public ICommand TakePictureCommand { get; private set; }
         public ICommand SubmitCommand { get; private set; }
 
+        public double Progress { get => progress; set => SetProperty(ref progress, value); }
+
         public ICommand RemovePictureCommand { get; private set; }
         public ReporterViewModel()
         {
             RemovePictureCommand = new RemovePictureCommand(this);
-            AddPictureCommand = new AddPicture(this);
+            AddPictureCommand = new AsyncRelayCommand(AddPictureAsync);
             GetLocationCommand = new GetLocationCommand(this);
             TakePictureCommand = new TakePictureCommand(this);
-            SubmitCommand = new SubmitCommand(this);
+            SubmitCommand = new AsyncRelayCommand(() => SubmitHelper.SubmitAsync(this));
             ImagePaths = new ObservableCollection<string>();
+        }
+
+        public async Task AddPictureAsync()
+        {
+            if (MediaPicker.Default.IsCaptureSupported)
+            {
+                FileResult photo = await MediaPicker.Default.PickPhotoAsync();
+
+                if (photo != null)
+                {
+                    this.ImagePaths.Add(photo.FullPath);
+                }
+            }
         }
     }
 }
