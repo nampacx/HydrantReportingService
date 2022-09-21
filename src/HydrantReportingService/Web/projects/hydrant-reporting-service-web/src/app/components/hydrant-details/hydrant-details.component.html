@@ -9,15 +9,16 @@
             <p matLine>{{ hydrant.type }}</p>
         </mat-list-item>
         <mat-list-item>
-            <h3 matLine>Approved</h3>
-            <p matLine>{{ hydrant.approved }}</p>
+            <mat-slide-toggle [disabled]="true" [checked]="hydrant.approved">Approved</mat-slide-toggle>
         </mat-list-item>
         <mat-divider></mat-divider>
         <h3 matSubheader>Address</h3>
-        <mat-list-item>
-            <p matLine>{{ hydrant.address.addressLine }}</p>
-            <p matLine>{{ hydrant.address.postalCode }} {{ hydrant.address.locality }} </p>
-        </mat-list-item>
+        <ng-container *ngIf="hydrant.address">
+            <mat-list-item>
+                <p matLine>{{ hydrant.address.addressLine }}</p>
+                <p matLine>{{ hydrant.address.postalCode }} {{ hydrant.address.locality }} </p>
+            </mat-list-item>
+        </ng-container>
     </mat-list>
 </ng-container>
 <ng-container *ngIf="!hydrant">

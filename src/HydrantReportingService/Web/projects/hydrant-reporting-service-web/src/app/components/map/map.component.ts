@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { Map, MapOptions, tileLayer, latLng, LeafletEvent } from 'leaflet';
+import { Map, MapOptions, LeafletEvent } from 'leaflet';
 
 @Component({
   selector: 'app-map',
@@ -13,7 +13,7 @@ export class MapComponent implements OnInit, OnDestroy {
   public map!: Map;
   public zoom: number = 15;
 
-  constructor() { 
+  constructor() {
   }
 
   ngOnInit() {

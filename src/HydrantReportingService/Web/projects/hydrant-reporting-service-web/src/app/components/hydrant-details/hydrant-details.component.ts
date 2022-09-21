@@ -8,8 +8,8 @@ import { Hydrant } from '../../models/hydrant';
 })
 export class HydrantDetailsComponent implements OnInit {
 
-  @Input() hydrant!: Hydrant;
-  
+  @Input() hydrant: Hydrant | undefined;
+
   constructor() { }
 
   ngOnInit(): void {

@@ -1,5 +1,5 @@
 export interface Address {
-    addressline: string;
+    addressLine: string;
     adminDistrict: string;
     adminDistrict2: string;
     countryRegion: string;

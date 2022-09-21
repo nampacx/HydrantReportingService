@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { latLng, Map, MapOptions, tileLayer, Icon, geoJSON, Marker } from 'leaflet';
 import { ReportService } from './services/report.service';
 import * as geojson from 'geojson';
@@ -11,46 +11,49 @@ import { Hydrant } from './models/hydrant';
 })
 export class AppComponent implements AfterViewInit {
 
-  private map!: Map;
-  private zoom!: number;
+  private map: Map = {} as Map;
+  private zoom: number = 0;
 
   public mapOptions: MapOptions = {
-    layers:[tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    layers: [tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       opacity: 0.7,
       maxZoom: 19,
       detectRetina: true,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     })],
     zoom: 15,
-    center:latLng(0,0)
-};
+    center: latLng(0, 0)
+  };
 
-constructor(private reportService: ReportService){}
+  public selectedHydrant: Hydrant | undefined = undefined;
+
+
+  constructor(private reportService: ReportService, private ref: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
     this.map
-    .locate({setView: true})
-    .on('locationerror', (e) => {
+      .locate({ setView: true })
+      .on('locationerror', (e) => {
         console.log(e);
         alert("Location access has been denied.");
-    });
+      });
 
-    this.reportService.getReports().subscribe( (fc: geojson.FeatureCollection) => {
-      fc.features.forEach( (f: geojson.Feature) => {
-        if(f.geometry.type === "Point"){
-          let text = "";
+    this.reportService.getReports().subscribe((fc: geojson.FeatureCollection) => {
+
+      fc.features.forEach((f: geojson.Feature) => {
+        if (f.geometry.type === "Point") {
+          let hydrant = null;
           let point = f.geometry as geojson.Point;
-          if(f.properties){
-            let hydrant = f.properties as Hydrant;
-            text = hydrant.address.formattedAddress;
+          if (f.properties) {
+            hydrant = f.properties as Hydrant;
           }
-          
-          this.addGeoJSonMarker(point, text);
+
+          this.addGeoJSonMarker(point, hydrant);
         }
       });
 
       this.map.fitBounds(geoJSON(fc).getBounds());
-      
+
     });
   }
 
@@ -62,21 +65,36 @@ constructor(private reportService: ReportService){}
     this.zoom = zoom;
   }
 
-  private addGeoJSonMarker(point: geojson.Point, text: string) {
-    var icon = new Icon({
-      iconUrl: 'assets/icons/hydrant.svg',
+  private addGeoJSonMarker(point: geojson.Point, hydrant: Hydrant | null) {
+    let text = "";
+    let iconFile = "hydrant";
+    if (hydrant != null) {
+      text = hydrant.address.formattedAddress;
+      if (hydrant.type === "UnderfloodHydrant") iconFile += "_uf";
+      if (!hydrant.approved) iconFile += "_l";
+    }
+    const icon = new Icon({
+      iconUrl: 'assets/icons/' + iconFile + ".png",
       iconSize: [30, 30], // size of the icon
-      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
       popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
 
+    const options = { icon: icon, hydrant: hydrant };
+
     var marker = geoJSON(point, {
-      pointToLayer: (point,latlon)=> {
-        return new Marker(latlon, {icon: icon})
+      pointToLayer: (point, latlon) => {
+        return new Marker(latlon, options)
       }
     });
-    marker.bindPopup(text);
+    marker.on("click", (e) => {
+      if (e.sourceTarget.options.hydrant) {
+        this.selectedHydrant = e.sourceTarget.options.hydrant;
+        this.ref.detectChanges();
+      }
+    })
     marker.addTo(this.map);
   }
+
+
 
 }
