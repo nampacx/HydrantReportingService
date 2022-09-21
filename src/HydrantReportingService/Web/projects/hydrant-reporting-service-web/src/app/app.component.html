@@ -1,7 +1,16 @@
-<div class="fs-container">
-<app-map
-  (map$)="receiveMap($event)"
-  (zoom$)="receiveZoom($event)"
-  id='main-map'>
-</app-map>
-</div>
+<mat-toolbar>
+  <span>My Application</span>
+</mat-toolbar>
+<mat-drawer-container class="main-container">
+  <mat-drawer-content>
+    <app-map
+      (map$)="receiveMap($event)"
+      (zoom$)="receiveZoom($event)"
+      id='main-map'>
+    </app-map>
+  </mat-drawer-content>
+  <mat-drawer mode="side" position="end" opened>
+    Drawer content
+  </mat-drawer>
+
+</mat-drawer-container>
