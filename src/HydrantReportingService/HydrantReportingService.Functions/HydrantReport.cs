@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Composition;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -68,7 +69,7 @@ namespace HydrantReportingService.Functions
                 databaseName: "%CosmosDatabase%",
                 collectionName: "%CosmosCollection%",
                 ConnectionStringSetting = "CosmosDBConnection",
-                SqlQuery = "select * from reports")]  
+                SqlQuery = "select * from reports")]
             IEnumerable<HydrantReportDTO> reports)
         {
             return new OkObjectResult(reports);
@@ -87,22 +88,35 @@ namespace HydrantReportingService.Functions
                 SqlQuery = "select * from reports")]
             IEnumerable<HydrantReportDTO> reports)
         {
-            var result = reports.Select(r =>
+            var features = new List<Feature>();
+            foreach (var report in reports.Where(r => r.Longitude != 0 && r.Latitude != 0))
             {
-                return r.ConvertToGeoJsonFeature();
-            });
+                var coordinates = new Position(report.Latitude, report.Longitude);
+                var geom = new Point(coordinates);
+                var properties = new Dictionary<string, object>
+                {
+                    {"type", report.Type },
+                    {"address", report.Address },
+                    {"approved", report.Approved },
+                    {"id", report.Id }
+                };
+                features.Add(new Feature(geom, properties));
+            }
+
+            var fc = new FeatureCollection(features);
+
             var settings = new JsonSerializerSettings();
             settings.Converters.Add(new StringEnumConverter());
-            var resultAsJson = JsonConvert.SerializeObject(result,Formatting.Indented, settings);
+            var resultAsJson = JsonConvert.SerializeObject(fc, Formatting.Indented, settings);
             return new OkObjectResult(resultAsJson);
         }
 
         [FunctionName("ApproveHydrantReport")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.Accepted ,Description = "Accepted response")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.Accepted, Description = "Accepted response")]
         public async Task<IActionResult> ApproveReport(
-           [HttpTrigger(AuthorizationLevel.Function, "put", Route = "reports/{reportId}/approve")] HttpRequest req,string reportId,
+           [HttpTrigger(AuthorizationLevel.Function, "put", Route = "reports/{reportId}/approve")] HttpRequest req, string reportId,
             [CosmosDB(
                 databaseName: "%CosmosDatabase%",
                 collectionName: "%CosmosCollection%",

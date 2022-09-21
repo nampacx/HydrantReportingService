@@ -32,10 +32,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\hydrant.svg" Color="Red" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="Red" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -53,6 +53,9 @@
 		<None Remove="Resources\Images\add_a_photo_black_24dp.svg" />
 		<None Remove="Resources\Images\add_photo_alternate_black_24dp.svg" />
 		<None Remove="Resources\Images\delete_black_24dp.svg" />
+		<None Remove="Resources\Images\done.svg" />
+		<None Remove="Resources\Images\mylocation.svg" />
+		<None Remove="Resources\Images\newreport.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -61,6 +64,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.13.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="1.3.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -78,6 +83,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="Controls\SimplePopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="StartPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

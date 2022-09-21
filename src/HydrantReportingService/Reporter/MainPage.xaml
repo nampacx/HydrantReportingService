@@ -9,136 +9,124 @@
     <ContentPage.BindingContext>
         <viewModels:ReporterViewModel />
     </ContentPage.BindingContext>
-    <ScrollView Margin="20">
+    <Grid>
 
-        <VerticalStackLayout Margin="10">
+        <Image Source="blackhydrant.png" />
+        <ScrollView Margin="20">
 
-            <Label Margin="0,20" Text="Position:" />
-            <Button
-                BorderColor="Blue"
-                BorderWidth="2"
-                Command="{Binding GetLocationCommand}"
-                CornerRadius="5"
-                HorizontalOptions="Fill"
-                Text="Get coodinates" />
-            <Label HorizontalOptions="Center" Text="{Binding LocationString}" />
+            <VerticalStackLayout Margin="10" Spacing="20">
 
-            <Label Margin="0,20" Text="Type" />
-            <Border>
-                <Picker
-                    ItemsSource="{Binding AllTypes}"
-                    SelectedItem="{Binding SelectedType, Mode=TwoWay}"
-                    TextColor="White" />
-            </Border>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Label
-                    Grid.Column="0"
-                    Margin="0,20"
-                    Text="Defect:"
-                    VerticalOptions="Center" />
-                <Switch
-                    Grid.Column="1"
-                    Margin="0,20"
-                    VerticalOptions="Center" />
-            </Grid>
-            <Label Margin="0,20" Text="Notes" />
-            <Border>
-                <Editor HeightRequest="250" Placeholder="Enter your response here" />
-            </Border>
-
-            <Label Margin="0,20" Text="Picture:" />
-            <CarouselView
-                x:Name="carouselView"
-                Margin="0,20"
-                IndicatorView="indicatorView"
-                ItemsSource="{Binding ImagePaths}">
-                <CarouselView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <Frame
-                                Margin="20"
-                                BorderColor="DarkGray"
-                                CornerRadius="5"
-                                HasShadow="True"
-                                HeightRequest="250"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center">
-                                <SwipeView>
-                                    <SwipeView.BottomItems>
-                                        <SwipeItem
-                                            BackgroundColor="Red"
-                                            Command="{Binding Source={x:Reference carouselView}, Path=BindingContext.RemovePictureCommand}"
-                                            CommandParameter="{Binding}"
-                                            IconImageSource="delete_black_24dp.svg"
-                                            Text="Delete" />
-                                    </SwipeView.BottomItems>
-                                    <StackLayout>
-                                        <Image>
-                                            <Image.Source>
-                                                <FileImageSource File="{Binding}" />
-                                            </Image.Source>
-                                        </Image>
-                                    </StackLayout>
-                                </SwipeView>
-                            </Frame>
-                        </StackLayout>
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
-            <IndicatorView
-                x:Name="indicatorView"
-                HorizontalOptions="Center"
-                IndicatorColor="Red"
-                SelectedIndicatorColor="Green" />
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                <Label FontSize="Subtitle" Text="Position:" />
                 <ImageButton
-                    Grid.Column="0"
-                    Margin="20"
-                    BackgroundColor="White"
-                    BorderColor="Blue"
-                    BorderWidth="2"
-                    Command="{Binding TakePictureCommand}"
-                    CornerRadius="5"
+                    Command="{Binding GetLocationCommand}"
                     HeightRequest="50"
-                    HorizontalOptions="Center"
-                    Source="add_a_photo_black_24dp.svg"
-                    WidthRequest="100" />
+                    HorizontalOptions="Fill"
+                    Source="mylocation.svg" />
+                <Label HorizontalOptions="Center" Text="{Binding LocationString}" />
 
+                <Label FontSize="Subtitle" Text="Type:" />
+                <Border Padding="2" Stroke="{StaticResource Secondary}">
+                    <Picker
+                        FontSize="12"
+                        HorizontalTextAlignment="Center"
+                        ItemsSource="{Binding AllTypes}"
+                        SelectedItem="{Binding SelectedType, Mode=TwoWay}"
+                        VerticalTextAlignment="Center" />
+                </Border>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        FontSize="Subtitle"
+                        Text="Defect:"
+                        VerticalOptions="Center" />
+                    <Switch Grid.Column="1" VerticalOptions="Center" />
+                </Grid>
+                <Label FontSize="Subtitle" Text="Notes:" />
+                <Border Padding="2" Stroke="{StaticResource Secondary}">
+                    <Editor
+                        HeightRequest="250"
+                        Placeholder="Enter your response here"
+                        Text="{Binding Notes, Mode=TwoWay}" />
+                </Border>
+
+                <Label FontSize="Subtitle" Text="Picture:" />
+                <CarouselView
+                    x:Name="carouselView"
+                    IndicatorView="indicatorView"
+                    ItemsSource="{Binding ImagePaths}">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Frame
+                                    Margin="20"
+                                    BorderColor="DarkGray"
+                                    CornerRadius="5"
+                                    HasShadow="True"
+                                    HeightRequest="250"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <SwipeView>
+                                        <SwipeView.BottomItems>
+                                            <SwipeItem
+                                                BackgroundColor="Red"
+                                                Command="{Binding Source={x:Reference carouselView}, Path=BindingContext.RemovePictureCommand}"
+                                                CommandParameter="{Binding}"
+                                                IconImageSource="delete_black_24dp.svg"
+                                                Text="Delete" />
+                                        </SwipeView.BottomItems>
+                                        <StackLayout>
+                                            <Image>
+                                                <Image.Source>
+                                                    <FileImageSource File="{Binding}" />
+                                                </Image.Source>
+                                            </Image>
+                                        </StackLayout>
+                                    </SwipeView>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                <IndicatorView
+                    x:Name="indicatorView"
+                    HorizontalOptions="Center"
+                    IndicatorColor="{StaticResource Secondary}"
+                    SelectedIndicatorColor="{StaticResource Tertiary}" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ImageButton
+                        Grid.Column="0"
+                        Command="{Binding TakePictureCommand}"
+                        HeightRequest="50"
+                        HorizontalOptions="Center"
+                        Source="add_a_photo_black_24dp.svg"
+                        WidthRequest="100" />
+
+                    <ImageButton
+                        Grid.Column="1"
+                        Command="{Binding AddPictureCommand}"
+                        CornerRadius="5"
+                        HeightRequest="50"
+                        HorizontalOptions="Center"
+                        Source="add_photo_alternate_black_24dp.svg"
+                        WidthRequest="100" />
+                </Grid>
                 <ImageButton
-                    Grid.Column="1"
-                    Margin="20"
-                    BackgroundColor="White"
-                    BorderColor="Blue"
-                    BorderWidth="2"
-                    Command="{Binding AddPictureCommand}"
-                    CornerRadius="5"
+                    Command="{Binding SubmitCommand}"
                     HeightRequest="50"
-                    HorizontalOptions="Center"
-                    Source="add_photo_alternate_black_24dp.svg"
-                    WidthRequest="100" />
-            </Grid>
-
-
-
-
-            <Button
-                BorderColor="Blue"
-                BorderWidth="2"
-                Command="{Binding SubmitCommand}"
-                CornerRadius="5"
-                HorizontalOptions="Fill"
-                Text="Submit" />
-
-        </VerticalStackLayout>
-    </ScrollView>
+                    HorizontalOptions="Fill"
+                    Source="done.svg" />
+            </VerticalStackLayout>
+        </ScrollView>
+        <ActivityIndicator IsRunning="{Binding ActivityInProgress}" />
+    </Grid>
 </ContentPage>
