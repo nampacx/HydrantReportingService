@@ -1,0 +1,423 @@
+[
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": null,
+          "approved": false,
+          "id": "6494be2a-de78-4c28-9896-d2722ba51ec6"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": null,
+          "approved": false,
+          "id": "ffdd4e83-97b6-415c-9150-762c5b29d152"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": null,
+          "approved": false,
+          "id": "bfca3c79-db26-487b-90f7-0ed13fb2b5b4"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": null,
+          "approved": false,
+          "id": "2c22b104-d9de-40f3-b86c-32a2970c43c1"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": null,
+          "approved": false,
+          "id": "57f49c94-a456-4612-978a-9c19a11ce0d1"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": null,
+          "approved": false,
+          "id": "72029612-8d7e-4ae3-9ac4-514ea5c0b001"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": null,
+          "approved": false,
+          "id": "7b5c9800-d343-48a5-9478-3ea81254a0e8"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": null,
+          "approved": false,
+          "id": "21f385ea-7d9f-46e2-9bda-7a30bbdf5b6b"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": null,
+          "approved": false,
+          "id": "bc586528-6d1d-46e0-83f3-abdee49e70e3"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.8214544,
+            48.436081
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": {
+            "addressLine": "Tannenweg 8",
+            "adminDistrict": "Baden-Württemberg",
+            "adminDistrict2": "Alb-Donau-Kreis",
+            "countryRegion": "Germany",
+            "locality": "Blaubeuren",
+            "postalCode": "89143",
+            "formattedAddress": "Tannenweg 8, 89143 Blaubeuren"
+          },
+          "approved": false,
+          "id": "d07be86b-35ac-4701-9784-7e04f4b3bc09"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.8214543,
+            48.4360823
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": {
+            "addressLine": "Tannenweg 8",
+            "adminDistrict": "Baden-Württemberg",
+            "adminDistrict2": "Alb-Donau-Kreis",
+            "countryRegion": "Germany",
+            "locality": "Blaubeuren",
+            "postalCode": "89143",
+            "formattedAddress": "Tannenweg 8, 89143 Blaubeuren"
+          },
+          "approved": false,
+          "id": "64f43df7-4d7c-46a4-83a3-f7ce583b52a7"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.825327,
+            48.438894
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": {
+            "addressLine": "Fichtenweg 2",
+            "adminDistrict": "Baden-Württemberg",
+            "adminDistrict2": "Alb-Donau-Kreis",
+            "countryRegion": "Germany",
+            "locality": "Blaubeuren",
+            "postalCode": "89143",
+            "formattedAddress": "Fichtenweg 2, 89143 Blaubeuren"
+          },
+          "approved": false,
+          "id": "df648402-af12-421b-ad99-125f474ba990"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.8214537,
+            48.436083
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": {
+            "addressLine": "Tannenweg 8",
+            "adminDistrict": "Baden-Württemberg",
+            "adminDistrict2": "Alb-Donau-Kreis",
+            "countryRegion": "Germany",
+            "locality": "Blaubeuren",
+            "postalCode": "89143",
+            "formattedAddress": "Tannenweg 8, 89143 Blaubeuren"
+          },
+          "approved": false,
+          "id": "bf34ea43-d590-401d-b975-a56aa028169d"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.8214537,
+            48.436083
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": {
+            "addressLine": "Tannenweg 8",
+            "adminDistrict": "Baden-Württemberg",
+            "adminDistrict2": "Alb-Donau-Kreis",
+            "countryRegion": "Germany",
+            "locality": "Blaubeuren",
+            "postalCode": "89143",
+            "formattedAddress": "Tannenweg 8, 89143 Blaubeuren"
+          },
+          "approved": false,
+          "id": "f0f12e27-09be-4bfe-b7db-b1f04078aa45"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.8214562,
+            48.4360827
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": {
+            "addressLine": "Tannenweg 8",
+            "adminDistrict": "Baden-Württemberg",
+            "adminDistrict2": "Alb-Donau-Kreis",
+            "countryRegion": "Germany",
+            "locality": "Blaubeuren",
+            "postalCode": "89143",
+            "formattedAddress": "Tannenweg 8, 89143 Blaubeuren"
+          },
+          "approved": false,
+          "id": "45d20dc5-905c-4ae7-8407-bad99d61b541"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.825327,
+            48.438894
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": {
+            "addressLine": "Fichtenweg 2",
+            "adminDistrict": "Baden-Württemberg",
+            "adminDistrict2": "Alb-Donau-Kreis",
+            "countryRegion": "Germany",
+            "locality": "Blaubeuren",
+            "postalCode": "89143",
+            "formattedAddress": "Fichtenweg 2, 89143 Blaubeuren"
+          },
+          "approved": false,
+          "id": "a2e86075-f323-43ea-9f3f-fadd7eeb5457"
+        }
+      }
+    ]
+  },
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.825327,
+            48.438894
+          ]
+        },
+        "properties": {
+          "type": "UnderfloodHydrant",
+          "address": {
+            "addressLine": "Fichtenweg 2",
+            "adminDistrict": "Baden-Württemberg",
+            "adminDistrict2": "Alb-Donau-Kreis",
+            "countryRegion": "Germany",
+            "locality": "Blaubeuren",
+            "postalCode": "89143",
+            "formattedAddress": "Fichtenweg 2, 89143 Blaubeuren"
+          },
+          "approved": false,
+          "id": "fc40e4ec-fb92-4130-a39b-6b7611a767cb"
+        }
+      }
+    ]
+  }
+]

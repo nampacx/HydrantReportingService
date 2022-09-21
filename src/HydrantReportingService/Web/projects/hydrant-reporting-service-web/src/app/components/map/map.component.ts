@@ -9,18 +9,9 @@ import { Map, MapOptions, tileLayer, latLng, LeafletEvent } from 'leaflet';
 export class MapComponent implements OnInit, OnDestroy {
   @Output() map$: EventEmitter<Map> = new EventEmitter;
   @Output() zoom$: EventEmitter<number> = new EventEmitter;
-  @Input() options: MapOptions= {
-                      layers:[tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        opacity: 0.7,
-                        maxZoom: 19,
-                        detectRetina: true,
-                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      })],
-                      zoom:1,
-                      center:latLng(0,0)
-  };
+  @Input() options!: MapOptions;
   public map!: Map;
-  public zoom!: number;
+  public zoom: number = 15;
 
   constructor() { 
   }
@@ -38,6 +29,12 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map$.emit(map);
     this.zoom = map.getZoom();
     this.zoom$.emit(this.zoom);
+
+    this.map.locate({setView: true})
+        .on('locationerror', (e) => {
+            console.log(e);
+            alert("Location access has been denied.");
+        });
   }
 
   onMapZoomEnd(e: LeafletEvent) {

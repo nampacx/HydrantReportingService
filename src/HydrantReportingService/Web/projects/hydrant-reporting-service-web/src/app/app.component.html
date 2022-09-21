@@ -1,9 +1,10 @@
 <mat-toolbar>
-  <span>My Application</span>
+  <span>Hydrant Reporting Service</span>
 </mat-toolbar>
 <mat-drawer-container class="main-container">
   <mat-drawer-content>
     <app-map
+    [options]="mapOptions"
       (map$)="receiveMap($event)"
       (zoom$)="receiveZoom($event)"
       id='main-map'>
