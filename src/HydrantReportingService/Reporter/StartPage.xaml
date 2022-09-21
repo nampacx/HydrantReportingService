@@ -3,7 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Reporter.StartPage"
              Title="StartPage">
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+    <Grid>
+        <Image Source="blackhydrant.png"/>
+        <VerticalStackLayout VerticalOptions="End" HorizontalOptions="Center" Margin="0,0,0,50">
         <ImageButton Source="newreport.svg" HeightRequest="100" WidthRequest="200" Clicked="Button_Clicked" CornerRadius="20"/>
     </VerticalStackLayout>
+    </Grid>
+
 </ContentPage>
