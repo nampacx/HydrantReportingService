@@ -28,6 +28,7 @@
               "projects/hydrant-reporting-service-web/src/assets"
             ],
             "styles": [
+              "./node_modules/leaflet/dist/leaflet.css",
               "projects/hydrant-reporting-service-web/src/styles.scss"
             ],
             "scripts": []
