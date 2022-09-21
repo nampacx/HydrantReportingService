@@ -4,7 +4,17 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
-    <VerticalStackLayout>
-        <Label Text="This is a very important message!" />
+    <VerticalStackLayout
+        BackgroundColor="{StaticResource White}"
+        HeightRequest="200"
+        HorizontalOptions="CenterAndExpand">
+        <Label
+            x:Name="Label"
+            FontSize="Large"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Text="This is a very important message!"
+            VerticalOptions="Center"
+            VerticalTextAlignment="Center" />
     </VerticalStackLayout>
 </toolkit:Popup>

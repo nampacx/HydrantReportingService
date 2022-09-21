@@ -15,6 +15,8 @@ namespace Reporter.ViewModel
         private string notes;
         private bool defect;
         private string selectedType;
+        private int maxSteps;
+        private int currentSteps;
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -51,6 +53,10 @@ namespace Reporter.ViewModel
             }
         }
         public HydrantType HydrantType { get; set; }
+
+        public int MaxSteps { get => maxSteps; set => SetProperty(ref maxSteps, value); }
+
+        public int CurrentSteps { get => currentSteps; set => SetProperty(ref currentSteps, value); }
 
         public ObservableCollection<string> ImagePaths { get => imagePaths; set => SetProperty(ref imagePaths, value); }
 

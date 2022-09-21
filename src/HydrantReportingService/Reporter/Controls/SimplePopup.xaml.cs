@@ -4,8 +4,11 @@ namespace Reporter.Controls;
 
 public partial class SimplePopup : Popup
 {
-	public SimplePopup()
+	public SimplePopup(string text)
 	{
-		InitializeComponent();
-	}
+        InitializeComponent();
+
+        if (!string.IsNullOrEmpty(text))
+            Label.Text = text;
+    }
 }

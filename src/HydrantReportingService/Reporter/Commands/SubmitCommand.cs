@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Input;
 using HydrantReportingService.Library;
 using Newtonsoft.Json;
 using Reporter.Controls;
@@ -27,8 +28,10 @@ namespace Reporter.Commands
 
         public void Execute(object parameter)
         {
-            ShowPupup("");
-            return;
+            Shell.Current.Dispatcher.Dispatch(() =>
+            {
+                reporterViewModel.MaxSteps = 2 + reporterViewModel.ImagePaths.Count;
+            });
 
             var newReport = new HydrantReportDTO
             {
@@ -40,12 +43,26 @@ namespace Reporter.Commands
             };
             try
             {
+                Shell.Current.Dispatcher.Dispatch(() =>
+                {
+                    reporterViewModel.CurrentSteps = 0;
+                });
                 var reportId = SubmitRequest(newReport).Id;
+                Shell.Current.Dispatcher.Dispatch(() =>
+                {
+                    reporterViewModel.CurrentSteps++;
+                });
+
                 var sasUri = RequestSasUri(reportId);
-                UploadFiles(sasUri);
-                ShowPupup("Report sucessfully created");
+                Shell.Current.Dispatcher.Dispatch(() =>
+                {
+                    reporterViewModel.CurrentSteps++;
+                });
+
+                UploadFiles(sasUri, reportId);
+                ShowPupup("Report sucessfully created!");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ShowPupup(e.Message);
             }
@@ -55,16 +72,20 @@ namespace Reporter.Commands
 
         private void ShowPupup(string text)
         {
-            var popup = new SimplePopup();
+            var popup = new SimplePopup(text);
 
             Shell.Current.ShowPopup(popup);
         }
 
-        private void UploadFiles(Uri sasUri)
+        private void UploadFiles(Uri sasUri, string reportId)
         {
             foreach (var image in reporterViewModel.ImagePaths)
             {
-                UploadService.UploadFile(sasUri, "", image);
+                UploadService.UploadFile(sasUri, reportId, image);
+                Shell.Current.Dispatcher.Dispatch(() =>
+                {
+                    reporterViewModel.CurrentSteps++;
+                });
             }
         }
 

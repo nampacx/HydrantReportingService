@@ -13,10 +13,9 @@
         <Image Source="blackhydrant.png"/>
         <ScrollView Margin="20">
 
-            <VerticalStackLayout Margin="10">
+            <VerticalStackLayout Margin="10" Spacing="20">
 
                 <Label
-                Margin="0,20"
                 FontSize="Subtitle"
                 Text="Position:" />
                 <ImageButton
@@ -27,7 +26,6 @@
                 <Label HorizontalOptions="Center" Text="{Binding LocationString}" />
 
                 <Label
-                Margin="0,20"
                 FontSize="Subtitle"
                 Text="Type:" />
                 <Border Padding="2" Stroke="{StaticResource Secondary}">
@@ -46,17 +44,14 @@
                     </Grid.ColumnDefinitions>
                     <Label
                     Grid.Column="0"
-                    Margin="0,20"
                     FontSize="Subtitle"
                     Text="Defect:"
                     VerticalOptions="Center" />
                     <Switch
                     Grid.Column="1"
-                    Margin="0,20"
                     VerticalOptions="Center" />
                 </Grid>
                 <Label
-                Margin="0,20"
                 FontSize="Subtitle"
                 Text="Notes:" />
                 <Border Padding="2" Stroke="{StaticResource Secondary}">
@@ -67,12 +62,10 @@
                 </Border>
 
                 <Label
-                Margin="0,20"
                 FontSize="Subtitle"
                 Text="Picture:" />
                 <CarouselView
                 x:Name="carouselView"
-                Margin="0,20"
                 IndicatorView="indicatorView"
                 ItemsSource="{Binding ImagePaths}">
                     <CarouselView.ItemTemplate>
@@ -121,7 +114,6 @@
                     </Grid.ColumnDefinitions>
                     <ImageButton
                     Grid.Column="0"
-                    Margin="20"
                     Command="{Binding TakePictureCommand}"
                     HeightRequest="50"
                     HorizontalOptions="Center"
@@ -130,7 +122,6 @@
 
                     <ImageButton
                     Grid.Column="1"
-                    Margin="20"
                     Command="{Binding AddPictureCommand}"
                     CornerRadius="5"
                     HeightRequest="50"
@@ -144,6 +135,11 @@
                 HorizontalOptions="Fill"
                 Source="done.svg" />
 
+                <HorizontalStackLayout Spacing="20">
+                    <Label Text="{Binding CurrentSteps}" />
+                    <Label Text="/"/>
+                    <Label Text="{Binding MaxSteps}" />
+                </HorizontalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
