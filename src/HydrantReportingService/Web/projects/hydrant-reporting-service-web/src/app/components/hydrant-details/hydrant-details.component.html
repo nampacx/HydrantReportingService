@@ -1,0 +1,25 @@
+<ng-container *ngIf="hydrant">
+    <mat-list>
+        <mat-list-item>
+            <h3 matLine>ID</h3>
+            <p matLine>{{ hydrant.id }}</p>
+        </mat-list-item>
+        <mat-list-item>
+            <h3 matLine>Type</h3>
+            <p matLine>{{ hydrant.type }}</p>
+        </mat-list-item>
+        <mat-list-item>
+            <h3 matLine>Approved</h3>
+            <p matLine>{{ hydrant.approved }}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3 matSubheader>Address</h3>
+        <mat-list-item>
+            <p matLine>{{ hydrant.address.addressLine }}</p>
+            <p matLine>{{ hydrant.address.postalCode }} {{ hydrant.address.locality }} </p>
+        </mat-list-item>
+    </mat-list>
+</ng-container>
+<ng-container *ngIf="!hydrant">
+    <p>Please select an hydrant</p>
+</ng-container>
