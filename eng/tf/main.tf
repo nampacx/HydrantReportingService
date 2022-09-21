@@ -28,7 +28,7 @@ resource "azurerm_service_plan" "svc_plan" {
   name                = "${var.application_name}-${var.stage}-svc-plan"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  os_type             = "Linux"
+  os_type             = "Windows"
   sku_name            = "Y1"
 }
 
@@ -77,7 +77,7 @@ resource "azurerm_cosmosdb_sql_container" "container" {
   partition_key_version = 1
 }
 
-resource "azurerm_linux_function_app" "example" {
+resource "azurerm_windows_function_app" "example" {
   name                       = "${var.application_name}-${var.stage}-fnct"
   location                   = azurerm_resource_group.rg.location
   resource_group_name        = azurerm_resource_group.rg.name
@@ -94,4 +94,10 @@ resource "azurerm_linux_function_app" "example" {
     "CosmosCollection"   = azurerm_cosmosdb_sql_container.container.name
     "BingMapsApiKey"     = var.bingmaps_api_key
   }
+}
+
+resource "azurerm_static_site" "web_app" {
+  name                = var.application_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
 }
