@@ -2,6 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { latLng, Map, MapOptions, tileLayer, Icon, geoJSON, Marker } from 'leaflet';
 import { ReportService } from './services/report.service';
 import * as geojson from 'geojson';
+import { Hydrant } from './models/hydrant';
 
 @Component({
   selector: 'app-root',
@@ -27,15 +28,30 @@ export class AppComponent implements AfterViewInit {
 constructor(private reportService: ReportService){}
 
   ngAfterViewInit(): void {
-      this.reportService.getReports().subscribe( (fc: geojson.FeatureCollection) => {
-        fc.features.forEach( (f: geojson.Feature) => {
-          let point = f.geometry as geojson.Point;
-          this.addGeoJSonMarker(point, "hallo");
-        });
+    this.map
+    .locate({setView: true})
+    .on('locationerror', (e) => {
+        console.log(e);
+        alert("Location access has been denied.");
+    });
 
-        this.map.fitBounds(geoJSON(fc).getBounds());
-        
+    this.reportService.getReports().subscribe( (fc: geojson.FeatureCollection) => {
+      fc.features.forEach( (f: geojson.Feature) => {
+        if(f.geometry.type === "Point"){
+          let text = "";
+          let point = f.geometry as geojson.Point;
+          if(f.properties){
+            let hydrant = f.properties as Hydrant;
+            text = hydrant.address.formattedAddress;
+          }
+          
+          this.addGeoJSonMarker(point, text);
+        }
       });
+
+      this.map.fitBounds(geoJSON(fc).getBounds());
+      
+    });
   }
 
   public receiveMap(map: Map): void {

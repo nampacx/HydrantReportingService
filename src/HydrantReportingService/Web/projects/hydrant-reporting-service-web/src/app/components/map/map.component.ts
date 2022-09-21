@@ -29,12 +29,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map$.emit(map);
     this.zoom = map.getZoom();
     this.zoom$.emit(this.zoom);
-
-    this.map.locate({setView: true})
-        .on('locationerror', (e) => {
-            console.log(e);
-            alert("Location access has been denied.");
-        });
   }
 
   onMapZoomEnd(e: LeafletEvent) {
