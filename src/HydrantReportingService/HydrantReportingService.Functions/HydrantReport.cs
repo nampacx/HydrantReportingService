@@ -89,7 +89,7 @@ namespace HydrantReportingService.Functions
             IEnumerable<HydrantReportDTO> reports)
         {
             var features = new List<Feature>();
-            foreach (var report in reports)
+            foreach (var report in reports.Where(r => r.Longitude != 0 && r.Latitude != 0))
             {
                 var coordinates = new Position(report.Latitude, report.Longitude);
                 var geom = new Point(coordinates);
