@@ -1,5 +1,7 @@
-﻿using HydrantReportingService.Library;
+﻿using CommunityToolkit.Maui.Views;
+using HydrantReportingService.Library;
 using Newtonsoft.Json;
+using Reporter.Controls;
 using Reporter.Services;
 using Reporter.ViewModel;
 using RestSharp;
@@ -25,18 +27,37 @@ namespace Reporter.Commands
 
         public void Execute(object parameter)
         {
+            ShowPupup("");
+            return;
+
             var newReport = new HydrantReportDTO
             {
+                Longitude = reporterViewModel.Location.Longitude,
+                Latitude = reporterViewModel.Location.Latitude,
                 Defect = reporterViewModel.Defect,
                 Notes = reporterViewModel.Notes,
-                Type = reporterViewModel.HydrantType
+                Type = reporterViewModel.HydrantType,
             };
-
-            var reportId = SubmitRequest(newReport).Id;
-            var sasUri = RequestSasUri(reportId);
-            UploadFiles(sasUri);
+            try
+            {
+                var reportId = SubmitRequest(newReport).Id;
+                var sasUri = RequestSasUri(reportId);
+                UploadFiles(sasUri);
+                ShowPupup("Report sucessfully created");
+            }
+            catch(Exception e)
+            {
+                ShowPupup(e.Message);
+            }
 
             Shell.Current.Navigation.PopAsync();
+        }
+
+        private void ShowPupup(string text)
+        {
+            var popup = new SimplePopup();
+
+            Shell.Current.ShowPopup(popup);
         }
 
         private void UploadFiles(Uri sasUri)
@@ -53,9 +74,9 @@ namespace Reporter.Commands
             var result = restClient.Get(new RestRequest());
 
             if (result.IsSuccessful)
-                return new Uri(result.Content);
-
-            return null;
+                return new Uri(result.Content.Trim('\"'));
+            else
+                return null;
         }
 
         private HydrantReportDTO SubmitRequest(HydrantReportDTO hydrantReportDTO)
@@ -67,8 +88,8 @@ namespace Reporter.Commands
 
             if (result.IsSuccessful)
                 return JsonConvert.DeserializeObject<HydrantReportDTO>(result.Content);
-
-            return null;
+            else
+                return null;
         }
     }
 }

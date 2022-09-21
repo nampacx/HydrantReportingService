@@ -13,22 +13,28 @@
 
         <VerticalStackLayout Margin="10">
 
-            <Label Margin="0,20" Text="Position:" />
-            <Button
-                BorderColor="Blue"
-                BorderWidth="2"
+            <Label
+                Margin="0,20"
+                FontSize="Subtitle"
+                Text="Position:" />
+            <ImageButton
                 Command="{Binding GetLocationCommand}"
-                CornerRadius="5"
+                HeightRequest="50"
                 HorizontalOptions="Fill"
-                Text="Get coodinates" />
+                Source="mylocation.svg" />
             <Label HorizontalOptions="Center" Text="{Binding LocationString}" />
 
-            <Label Margin="0,20" Text="Type" />
-            <Border>
+            <Label
+                Margin="0,20"
+                FontSize="Subtitle"
+                Text="Type:" />
+            <Border Padding="2" Stroke="{StaticResource Secondary}">
                 <Picker
+                    FontSize="12"
+                    HorizontalTextAlignment="Center"
                     ItemsSource="{Binding AllTypes}"
                     SelectedItem="{Binding SelectedType, Mode=TwoWay}"
-                    TextColor="White" />
+                    VerticalTextAlignment="Center" />
             </Border>
 
             <Grid>
@@ -39,6 +45,7 @@
                 <Label
                     Grid.Column="0"
                     Margin="0,20"
+                    FontSize="Subtitle"
                     Text="Defect:"
                     VerticalOptions="Center" />
                 <Switch
@@ -46,12 +53,21 @@
                     Margin="0,20"
                     VerticalOptions="Center" />
             </Grid>
-            <Label Margin="0,20" Text="Notes" />
-            <Border>
-                <Editor HeightRequest="250" Placeholder="Enter your response here" />
+            <Label
+                Margin="0,20"
+                FontSize="Subtitle"
+                Text="Notes:" />
+            <Border Padding="2" Stroke="{StaticResource Secondary}">
+                <Editor
+                    HeightRequest="250"
+                    Placeholder="Enter your response here"
+                    Text="{Binding Notes, Mode=TwoWay}" />
             </Border>
 
-            <Label Margin="0,20" Text="Picture:" />
+            <Label
+                Margin="0,20"
+                FontSize="Subtitle"
+                Text="Picture:" />
             <CarouselView
                 x:Name="carouselView"
                 Margin="0,20"
@@ -93,8 +109,8 @@
             <IndicatorView
                 x:Name="indicatorView"
                 HorizontalOptions="Center"
-                IndicatorColor="Red"
-                SelectedIndicatorColor="Green" />
+                IndicatorColor="{StaticResource Secondary}"
+                SelectedIndicatorColor="{StaticResource Tertiary}" />
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -104,11 +120,7 @@
                 <ImageButton
                     Grid.Column="0"
                     Margin="20"
-                    BackgroundColor="White"
-                    BorderColor="Blue"
-                    BorderWidth="2"
                     Command="{Binding TakePictureCommand}"
-                    CornerRadius="5"
                     HeightRequest="50"
                     HorizontalOptions="Center"
                     Source="add_a_photo_black_24dp.svg"
@@ -117,9 +129,6 @@
                 <ImageButton
                     Grid.Column="1"
                     Margin="20"
-                    BackgroundColor="White"
-                    BorderColor="Blue"
-                    BorderWidth="2"
                     Command="{Binding AddPictureCommand}"
                     CornerRadius="5"
                     HeightRequest="50"
@@ -127,17 +136,11 @@
                     Source="add_photo_alternate_black_24dp.svg"
                     WidthRequest="100" />
             </Grid>
-
-
-
-
-            <Button
-                BorderColor="Blue"
-                BorderWidth="2"
+            <ImageButton
                 Command="{Binding SubmitCommand}"
-                CornerRadius="5"
+                HeightRequest="50"
                 HorizontalOptions="Fill"
-                Text="Submit" />
+                Source="done.svg" />
 
         </VerticalStackLayout>
     </ScrollView>
