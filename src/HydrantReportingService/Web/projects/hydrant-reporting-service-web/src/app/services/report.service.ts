@@ -10,7 +10,8 @@ import { Hydrant } from '../models/hydrant';
 })
 export class ReportService {
 
-  private reportUrl: string = "https://hrs-dev-fnct.azurewebsites.net/api/reports/geojson?code=XVs6JJ02hcEtt9XCwR1GXO2P420VxCkpeo-Sczv1Apj2AzFuDX1cXQ=="; // "assets/data/reports.json" // 
+  private reportUrl: string = "https://hrs-dev-fnct.azurewebsites.net/api/reports/geojson?code=XVs6JJ02hcEtt9XCwR1GXO2P420VxCkpeo-Sczv1Apj2AzFuDX1cXQ==";
+  private imageUrl: string = "https://hrs-dev-fnct.azurewebsites.net/api/reports/${reportId}/images/?code=lo0vvbZND4-i--Dz5Ki2rn_4-fFChL4IulECnXczkYquAzFuaQ1CZw=="
 
   constructor(private http: HttpClient) { }
 
@@ -18,13 +19,9 @@ export class ReportService {
     return this.http.get<geojson.FeatureCollection>(this.reportUrl);
   }
 
-  public getHydrants(): Observable<Hydrant[]> {
-    const hydrants: Hydrant[] = [];
-    this.getReports().subscribe( (fc) => {
-      fc.features.forEach( (f) => {
-        hydrants.push( f.properties as Hydrant);
-      })
-    })
-    return of(hydrants);
+  public getImageUrls(reportId: string): Observable<string[]> {
+    return this.http.get<string[]>(this.imageUrl.replace("${reportId}", reportId));
   }
+
+
 }

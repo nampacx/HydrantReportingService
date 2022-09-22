@@ -1,19 +1,23 @@
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" class="list-table">
-        <ng-container matColumnDef="list-type">
-            <th mat-header-cell *matHeaderCellDef>Type</th>
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="list-table">
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by type">Type</th>
             <td mat-cell *matCellDef="let hydrant"> {{hydrant.type}} </td>
         </ng-container>
-        <ng-container matColumnDef="list-address-postalcode">
-            <th mat-header-cell *matHeaderCellDef>Postal code</th>
+        <ng-container matColumnDef="approved">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by type">Approved</th>
+            <td mat-cell *matCellDef="let hydrant"> {{hydrant.approved ? "yes" : "no"}} </td>
+        </ng-container>
+        <ng-container matColumnDef="address.postalCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by posal code">Postal code</th>
             <td mat-cell *matCellDef="let hydrant"> {{hydrant.address.postalCode}} </td>
         </ng-container>
-        <ng-container matColumnDef="list-address-city">
-            <th mat-header-cell *matHeaderCellDef>City</th>
+        <ng-container matColumnDef="address.locality">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by city">City</th>
             <td mat-cell *matCellDef="let hydrant"> {{hydrant.address.locality}} </td>
         </ng-container>
-        <ng-container matColumnDef="list-address-street">
-            <th mat-header-cell *matHeaderCellDef>Street</th>
+        <ng-container matColumnDef="address.addressLine">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by street">Street</th>
             <td mat-cell *matCellDef="let hydrant"> {{hydrant.address.addressLine}} </td>
         </ng-container>
         

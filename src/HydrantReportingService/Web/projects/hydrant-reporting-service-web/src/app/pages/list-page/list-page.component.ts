@@ -1,5 +1,7 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Hydrant } from '../../models/hydrant';
 import { ReportService } from '../../services/report.service';
@@ -13,14 +15,24 @@ export class ListPageComponent implements OnInit, AfterViewInit {
 
   public hydrants: Hydrant[] = [];
   dataSource = new MatTableDataSource<Hydrant>();
-  public displayedColumns: string[] = ['list-type', 'list-address-postalcode', 'list-address-city', 'list-address-street'];
+  public displayedColumns: string[] = ['type', 'approved', 'address.postalCode', 'address.locality', 'address.addressLine'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(private reportService: ReportService) { }
+  constructor(private reportService: ReportService, private liveAnnouncer: LiveAnnouncer) { }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch(property) {
+        case 'address.postalCode': return item.address.postalCode;
+        case 'address.locality': return item.address.locality;
+        case 'address.addressLine': return item.address.addressLine;
+        default: return item[property as keyof Hydrant] as string;
+      }
+    };
+    this.dataSource.sort = this.sort;
   }
 
   ngOnInit(): void {
@@ -32,4 +44,12 @@ export class ListPageComponent implements OnInit, AfterViewInit {
     })
   }
 
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this.liveAnnouncer.announce('Sorting cleared');
+    }
+  }
 }

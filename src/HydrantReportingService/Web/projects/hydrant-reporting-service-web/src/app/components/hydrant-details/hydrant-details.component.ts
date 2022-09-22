@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Hydrant } from '../../models/hydrant';
+import { ReportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-hydrant-details',
@@ -10,9 +11,16 @@ export class HydrantDetailsComponent implements OnInit {
 
   @Input() hydrant: Hydrant | undefined;
 
-  constructor() { }
+  imageUrls: string[] = []
+
+  constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
+    if(this.hydrant != undefined){
+      this.reportService.getImageUrls(this.hydrant.id).subscribe( (u) => {
+        console.log(u);
+      })
+    }
   }
 
 }
