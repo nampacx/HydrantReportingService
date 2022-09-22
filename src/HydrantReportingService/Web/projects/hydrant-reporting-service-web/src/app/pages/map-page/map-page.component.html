@@ -1,0 +1,14 @@
+<mat-drawer-container class="main-container">
+    <mat-drawer-content>
+      <app-map
+      [options]="mapOptions"
+        (map$)="receiveMap($event)"
+        (zoom$)="receiveZoom($event)"
+        id='main-map'>
+      </app-map>
+    </mat-drawer-content>
+    <mat-drawer mode="side" position="end" opened>
+      <app-hydrant-details [hydrant]="selectedHydrant"></app-hydrant-details>
+    </mat-drawer>
+  
+  </mat-drawer-container>

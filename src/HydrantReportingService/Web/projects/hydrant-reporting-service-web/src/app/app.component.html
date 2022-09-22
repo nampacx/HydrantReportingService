@@ -1,17 +1,8 @@
 <mat-toolbar>
   <span>Hydrant Reporting Service</span>
 </mat-toolbar>
-<mat-drawer-container class="main-container">
-  <mat-drawer-content>
-    <app-map
-    [options]="mapOptions"
-      (map$)="receiveMap($event)"
-      (zoom$)="receiveZoom($event)"
-      id='main-map'>
-    </app-map>
-  </mat-drawer-content>
-  <mat-drawer mode="side" position="end" opened>
-    <app-hydrant-details [hydrant]="selectedHydrant"></app-hydrant-details>
-  </mat-drawer>
-
-</mat-drawer-container>
+<mat-button-toggle-group name="displayMode" aria-label="Display Mode" value="map">
+  <mat-button-toggle value="map" routerLink="map"><mat-icon>map</mat-icon></mat-button-toggle>
+  <mat-button-toggle value="list" routerLink="list"><mat-icon>list</mat-icon></mat-button-toggle>
+</mat-button-toggle-group>
+<router-outlet></router-outlet>

@@ -11,13 +11,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './components/map/map.component';
 import { HydrantDetailsComponent } from './components/hydrant-details/hydrant-details.component';
+import { MapPageComponent } from './pages/map-page/map-page.component';
+import { ListPageComponent } from './pages/list-page/list-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    HydrantDetailsComponent
+    HydrantDetailsComponent,
+    MapPageComponent,
+    ListPageComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import * as geojson from 'geojson';
+import { Hydrant } from '../models/hydrant';
 
 
 @Injectable({
@@ -15,5 +16,15 @@ export class ReportService {
 
   public getReports() : Observable<geojson.FeatureCollection> {
     return this.http.get<geojson.FeatureCollection>(this.reportUrl);
+  }
+
+  public getHydrants(): Observable<Hydrant[]> {
+    const hydrants: Hydrant[] = [];
+    this.getReports().subscribe( (fc) => {
+      fc.features.forEach( (f) => {
+        hydrants.push( f.properties as Hydrant);
+      })
+    })
+    return of(hydrants);
   }
 }
