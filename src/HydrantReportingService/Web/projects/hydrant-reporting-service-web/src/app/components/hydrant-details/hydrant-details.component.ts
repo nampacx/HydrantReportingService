@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Hydrant } from '../../models/hydrant';
 import { ReportService } from '../../services/report.service';
 
@@ -8,18 +8,30 @@ import { ReportService } from '../../services/report.service';
   styleUrls: ['./hydrant-details.component.scss']
 })
 export class HydrantDetailsComponent implements OnInit {
+  private _hdrant!: Hydrant;
 
-  @Input() hydrant: Hydrant | undefined;
+  @Input() set hydrant(value: Hydrant){
+    this._hdrant = value;
+    this.updateImageUrls();
+  }
+  get hydrant(): Hydrant {
+    return this._hdrant;
+  }
 
   imageUrls: string[] = []
 
-  constructor(private reportService: ReportService) { }
+  constructor(private reportService: ReportService, private ref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    if(this.hydrant != undefined){
+  }
+
+  private updateImageUrls(): void {
+    if(this.hydrant != null)
+    {
       this.reportService.getImageUrls(this.hydrant.id).subscribe( (u) => {
-        console.log(u);
-      })
+        this.imageUrls = u;
+        this.ref.detectChanges();
+      });
     }
   }
 

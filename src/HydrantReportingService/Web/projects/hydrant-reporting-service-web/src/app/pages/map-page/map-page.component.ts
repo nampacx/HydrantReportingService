@@ -25,7 +25,7 @@ export class MapPageComponent implements AfterViewInit {
     center: latLng(0, 0)
   };
 
-  public selectedHydrant: Hydrant | undefined = undefined;
+  public selectedHydrant!: Hydrant;
 
   constructor(private reportService: ReportService, private ref: ChangeDetectorRef) { }
 

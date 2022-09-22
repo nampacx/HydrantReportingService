@@ -19,6 +19,13 @@
                 <p matLine>{{ hydrant.address.postalCode }} {{ hydrant.address.locality }} </p>
             </mat-list-item>
         </ng-container>
+        <ng-container *ngIf="imageUrls.length > 0">
+            <mat-divider></mat-divider>
+            <h3 matSubheader>Images</h3>
+            <p *ngFor="let imageUrl of imageUrls">
+                <img src="{{imageUrl}}" width="150px" />
+            </p>
+        </ng-container>
     </mat-list>
 </ng-container>
 <ng-container *ngIf="!hydrant">
