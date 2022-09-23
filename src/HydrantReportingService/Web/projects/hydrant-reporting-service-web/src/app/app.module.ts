@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {LeafletModule} from '@asymmetrik/ngx-leaflet';
-import {MatNativeDateModule} from '@angular/material/core';
-import {HttpClientModule} from '@angular/common/http';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { MatNativeDateModule } from '@angular/material/core';
+import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './modules/material/material.module'
+import {ReactiveFormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { ListPageComponent } from './pages/list-page/list-page.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     MatNativeDateModule,
     LeafletModule,
     MaterialModule

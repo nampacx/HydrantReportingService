@@ -15,3 +15,19 @@
 th.mat-sort-header-sorted {
     color: black;
 }
+
+.search {
+    &__form {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+  
+      &_field {
+        width: 250px;
+        margin: 0 8px 16px 8px;
+      }
+    }
+    &__table {
+      margin: 0 18px 18px 18px;
+    }
+  }
